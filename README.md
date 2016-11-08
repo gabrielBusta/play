@@ -1,5 +1,5 @@
 # Common Django Commands
-## run the server at 127.0.0.1:8000S
+## run the server at 127.0.0.1:8000
 ```bash
 manage.py runserver
 ```

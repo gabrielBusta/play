@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <div class="page-header" id="banner">
@@ -15,12 +16,12 @@
     <label for="email-input">Email address</label>
     <input type="email" class="form-control" id="email-input" placeholder="Email">
   </div>
-  
+
   <div class="form-group">
     <label for="username-input">username</label>
     <input type="text" class="form-control" id="username-input" placeholder="username">
   </div>
-  
+
   <div class="form-group">
     <label for="first-name-input">First name</label>
     <input type="text" class="form-control" id="first-name-input" placeholder="First name">
@@ -42,4 +43,8 @@
   </div>
   <button type="submit" class="btn btn-primary">SIGN UP</button>
 </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/signup.js' %}"></script>
 {% endblock %}

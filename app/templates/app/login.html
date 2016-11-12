@@ -1,4 +1,5 @@
 {% extends 'app/base.html' %}
+{% load staticfiles %}
 
 {% block content %}
 <div class="page-header" id="banner">
@@ -25,4 +26,8 @@
 </div>
 <button type="submit" class="btn btn-primary">LOGIN</button>
 </form>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/login.js' %}"></script>
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'app/base.html' %}
+
+{% block content %}
+<div class="page-header" id="banner">
+  <div class="row">
+    <div class="col-lg-8 col-md-7 col-sm-6">
+      <h1>Create an account</h1>
+    </div>
+  </div>
+</div>
+
+<form>
+  <div class="form-group">
+    <label for="email-input">Email address</label>
+    <input type="email" class="form-control" id="email-input" placeholder="Email">
+  </div>
+
+  <div class="form-group">
+    <label for="first-name-input">First name</label>
+    <input type="text" class="form-control" id="first-name-input" placeholder="First name">
+  </div>
+
+</form>
+{% endblock %}

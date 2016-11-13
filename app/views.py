@@ -6,4 +6,6 @@ def login(request):
 
 
 def signup(request):
+    if request.method == 'POST':
+        pass
     return render(request, 'app/signup.html', {})

@@ -1,6 +1,11 @@
 from django.db import models
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=20)
+    primary_language = models.CharField(max_length=20)
+    country_code = models.CharField(max_length=3)
+
 class Artist(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
@@ -11,7 +16,7 @@ class Artist(models.Model):
              ('M', 'F'),
              ('m', 'f')))
     bio = models.CharField(max_length=500)
-    # TODO ADD REFRENCE TO COUNTRY
+    country = models.ForeignKey(Country)
 
 
 class Track(models.Model):
@@ -31,8 +36,4 @@ class Playlist(models.Model):
 
 
 class Library(models.Model):
-    pass
-
-
-class Country(model.Model):
     pass

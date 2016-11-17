@@ -48,9 +48,24 @@ def main():
         region = country['region']
         subregion = country['subregion']
         population = country['population']
-        # timezones = country['timezones']
-        # languages = country['languages']
-
+        new_country_timezones = country['timezones']
+        new_country_languages = country['languages']
+        
+        new_country= models.Country.objects.create(name=name, alpha2code=alpha2code, region=region,
+         subregion=subregion, population=population)
+    
+        for timezone in new_country_timezones:
+            new_t=models.TimeZone.objects.get(UTC_offset=timezone)
+            new_country.timezones.add(new_t)
+        
+        for language in new_country_languages:
+            new_language= models.Language.objects.get(ISO_639_1_code=language)
+            new_country.languages.add(new_language)
+        
+            
+            
+        
+        
     # mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 
     # result = mbz.search_artists(type="group")

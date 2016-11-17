@@ -2,7 +2,11 @@ def main():
     mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 
     result = mbz.search_releases(artist="Drake", release="Views", limit=1)
-    print(result)
+
+    for key in result.keys():
+        print(key)
+        print(result[key])
+        print()
 
     models.Country.objects.all()
 

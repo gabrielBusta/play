@@ -1,29 +1,48 @@
 import os
 import sys
 import musicbrainzngs as mbz
+import requests
 
 def main():
-    mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
+    # get every country in the world (250)
+    response = requests.get('https://restcountries.eu/rest/v1/all')
+    countries = response.json()
+    print("countries is a " + str(type(countries)))
+    print("an element of country is a " + str(type(countries[0])))
+    print("there are " + str(len(countries)) + " contries")
+    print()
+    uprint(countries)
+    # save each country to our country database
+    # for country in countries:
+        # find the data from the json
+        # name =
+        # region =
+        # subregion =
+        # population =
+        # timezones =
+        # languages =
+        # models.Country.objects.create(name=name, region=region, subregion=subregion,
+        #                               population=population, languages=languages)
 
-    result = mbz.search_artists(type="group")
+    # mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 
-    for key in result.keys():
-        print(key)
+    # result = mbz.search_artists(type="group")
 
-    print("number of artist:" + str(len(result["artist-list"])))
+    # for key in result.keys():
+        # print(key)
 
-    print("artist-list = ")
+    # print("number of artist:" + str(len(result["artist-list"])))
+
+    # print("artist-list = ")
 
     # uprint(result["artist-list"])
 
-    for artist in result["artist-list"]:
-        print()
-        uprint(artist)
-        print()
+    # for artist in result["artist-list"]:
+        # print()
+        # uprint(artist)
+        # print()
 
     # uprint(result)
-
-    models.Country.objects.all()
 
 
 def uprint(*objects, sep=' ', end='\n', file=sys.stdout):

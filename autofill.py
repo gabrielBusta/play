@@ -23,6 +23,9 @@ def main():
         # find the data from the json
         name = country['name']
         uprint(name)
+        #country_code
+        alpha2Code=['alpha2Code']
+        uprint(alpha2Code)
         region = country['region']
         uprint(region)
         subregion = country['subregion']

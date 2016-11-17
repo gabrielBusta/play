@@ -29,9 +29,11 @@ def main():
         uprint(subregion)
         population = country['population']
         uprint(population)
-        print()
-        # timezones =
-        # languages =
+        timezones=country['timezones']
+        uprint(timezones)
+        languages= country['languages']
+        uprint(languages)
+        uprint()
         # models.Country.objects.create(name=name, region=region, subregion=subregion,
         #                               population=population, languages=languages)
         # models.Country.objects.save()

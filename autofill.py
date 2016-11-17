@@ -24,7 +24,7 @@ def main():
         name = country['name']
         uprint(name)
         #country_code
-        alpha2Code=['alpha2Code']
+        alpha2Code=country['alpha2Code']
         uprint(alpha2Code)
         region = country['region']
         uprint(region)

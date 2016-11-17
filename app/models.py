@@ -3,9 +3,21 @@ from django.db import models
 
 class Country(models.Model):
     name = models.CharField(max_length=20)
-    primary_language = models.CharField(max_length=20)
-    country_code = models.CharField(max_length=3)
+    #primary_language = models.CharField(max_length=20)
+    #languages come as codes in the api
+    #languages= models.CharField(max_length=3)
+    region=models.CharField(max_length=20)
+    subregion=models.CharField(max_length=30)
+    population=models.CharField(max_length=20)
+    #timezones=models.CharField(max_length=20)
+    #country_code
+    alpha2Code = models.CharField(max_length=2)
+    
+class TimeZone(models.Model):
+    name= models.CharField(max_length=20)
 
+class Language(models.Model):
+    name= models.CharField(max_length=20)
 
 class Artist(models.Model):
     name = models.CharField(max_length=30)

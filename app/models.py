@@ -11,11 +11,11 @@ class Language(models.Model):
 
 class Country(models.Model):
     name = models.CharField(max_length=20)
-    languages= models.ManyToManyField(Language)
-    region=models.CharField(max_length=20)
-    subregion=models.CharField(max_length=30)
-    population=models.CharField(max_length=20)
-    timezones=models.ManyToManyField(TimeZone)
+    languages = models.ManyToManyField('Language')
+    region = models.CharField(max_length=50)
+    subregion = models.CharField(max_length=70)
+    population = models.PositiveIntegerField()
+    timezones = models.ManyToManyField('TimeZone')
     alpha2Code = models.CharField(max_length=2)
 
 

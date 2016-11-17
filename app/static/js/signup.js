@@ -2,7 +2,6 @@ $(document).ready(function() {
 
     $("#sign-up-form").on("submit", function(e) {
         event.preventDefault();
-        console.log("form submitted.");
         sendSignUpPost();
     });
 
@@ -18,11 +17,12 @@ $(document).ready(function() {
                 password1: $("#password1-input").val(),
                 password2: $("#password2-input").val()
             },
-            success: function(reponse) {
-                // clearSignUpForm();
-                console.log("success.");
+            success: function(response) {
+                alert(response);
             },
             error: function(xhr, errmsg, err) {
+                console.log(xhr);
+                console.log(err);
                 alert("oops! We have encountered an error: " + errmsg);
                 // provide a bit more info about the error to the console
                 console.log(xhr.status + ": " + xhr.responseText);

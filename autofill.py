@@ -2,16 +2,23 @@ import os
 import sys
 import musicbrainzngs as mbz
 import requests
+import codecs
+import json
 
 def main():
     # get every country in the world (250)
     response = requests.get('https://restcountries.eu/rest/v1/all')
     countries = response.json()
-    print("countries is a " + str(type(countries)))
-    print("an element of country is a " + str(type(countries[0])))
-    print("there are " + str(len(countries)) + " contries")
-    print()
-    uprint(countries)
+    uprint(json.dumps(countries))
+
+    # uprint(countries)
+
+    # load countries
+    # with codecs.open('./countries.txt', encoding='utf-8') as f:
+        # country_data = f.read()
+        # json.loads(country_data)
+        # uprint(country_data)
+
     # save each country to our country database
     # for country in countries:
         # find the data from the json

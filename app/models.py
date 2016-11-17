@@ -1,22 +1,21 @@
 from django.db import models
 
-    
+
 class TimeZone(models.Model):
-    name= models.CharField(max_length=20)
+    UTC_offset = models.CharField(max_length=9)
+
 
 class Language(models.Model):
-    name= models.CharField(max_length=20)
+    ISO_639_1_code = models.CharField(max_length=2)
+
 
 class Country(models.Model):
     name = models.CharField(max_length=20)
-    #primary_language = models.CharField(max_length=20)
-    #languages come as codes in the api
     languages= models.ManyToManyField(Language)
     region=models.CharField(max_length=20)
     subregion=models.CharField(max_length=30)
     population=models.CharField(max_length=20)
     timezones=models.ManyToManyField(TimeZone)
-    #country_code
     alpha2Code = models.CharField(max_length=2)
 
 

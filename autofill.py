@@ -5,38 +5,52 @@ import requests
 import codecs
 import json
 
+
 def main():
-    # get every country in the world (250)
-    # response = requests.get('https://restcountries.eu/rest/v1/all')
-    # countries = response.json()
-    # uprint(json.dumps(countries))
-
-    # uprint(countries)
-
     # load countries
     with codecs.open('./countries.json', encoding='utf-8') as f:
         data = f.read()
         countries = json.loads(data)
 
-    # save each country to our country database
+    uprint(countries[0])
+    print()
+
+    # find all the timezones
+    timezones = []
+    for country in countries:
+        for timezone in country['timezones']:
+            if timezone not in timezones:
+                timezones.append(timezone)
+    print('timezones = ' + str(timezones))
+    print()
+
+    # for timezone in timezones:
+        # models.TimeZone.objects.create(UTC_offset=timezone).save()
+
+    # find all the languages
+    languages = []
+    for country in countries:
+        for language in country['languages']:
+            if language not in languages:
+                languages.append(language)
+    print('languages = ' + str(languages))
+    print()
+
+    # for language in languages:
+        # models.Language.objects.create(ISO_639_1_code=language)
+
+    # save each country to our database
     for country in countries:
         # find the data from the json
         name = country['name']
-        uprint(name)
-        #country_code
-        alpha2Code=country['alpha2Code']
-        uprint(alpha2Code)
+        alpha2Code = country['alpha2Code']
         region = country['region']
-        uprint(region)
         subregion = country['subregion']
-        uprint(subregion)
         population = country['population']
-        uprint(population)
-        timezones=country['timezones']
-        uprint(timezones)
-        languages= country['languages']
-        uprint(languages)
-        uprint()
+        # timezones = country['timezones']
+        # languages = country['languages']
+
+
         # models.Country.objects.create(name=name, region=region, subregion=subregion,
         #                               population=population, languages=languages)
         # models.Country.objects.save()

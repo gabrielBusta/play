@@ -37,7 +37,8 @@ def main():
     print()
 
     # for language in languages:
-        # models.Language.objects.create(ISO_639_1_code=language)
+        # new_language = models.Language.objects.create(ISO_639_1_code=language)
+        # new_language.save()
 
     # save each country to our database
     for country in countries:
@@ -49,11 +50,6 @@ def main():
         population = country['population']
         # timezones = country['timezones']
         # languages = country['languages']
-
-
-        # models.Country.objects.create(name=name, region=region, subregion=subregion,
-        #                               population=population, languages=languages)
-        # models.Country.objects.save()
 
     # mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 

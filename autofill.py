@@ -12,20 +12,17 @@ def main():
         data = f.read()
         countries = json.loads(data)
 
-    uprint(countries[0])
-    print()
-
     # find all the timezones
     timezones = []
     for country in countries:
         for timezone in country['timezones']:
             if timezone not in timezones:
                 timezones.append(timezone)
-    print('timezones = ' + str(timezones))
-    print()
 
-    # for timezone in timezones:
-        # models.TimeZone.objects.create(UTC_offset=timezone).save()
+    for timezone in timezones:
+        new_timezone = models.TimeZone.objects.create(UTC_offset=timezone)
+        print(new_timezone)
+        # new_timezone.save()
 
     # find all the languages
     languages = []
@@ -33,13 +30,14 @@ def main():
         for language in country['languages']:
             if language not in languages:
                 languages.append(language)
-    print('languages = ' + str(languages))
-    print()
 
-    # for language in languages:
-        # new_language = models.Language.objects.create(ISO_639_1_code=language)
+
+    for language in languages:
+        new_language = models.Language.objects.create(ISO_639_1_code=language)
+        print(new_language)
         # new_language.save()
 
+    '''
     # save each country to our database
     for country in countries:
         # find the data from the json
@@ -50,22 +48,19 @@ def main():
         population = country['population']
         new_country_timezones = country['timezones']
         new_country_languages = country['languages']
-        
+
         new_country= models.Country.objects.create(name=name, alpha2code=alpha2code, region=region,
-         subregion=subregion, population=population)
-    
+                                                    subregion=subregion, population=population)
+
         for timezone in new_country_timezones:
-            new_t=models.TimeZone.objects.get(UTC_offset=timezone)
+            timezone_entity = models.TimeZone.objects.get(UTC_offset=timezone)
             new_country.timezones.add(new_t)
-        
+
         for language in new_country_languages:
-            new_language= models.Language.objects.get(ISO_639_1_code=language)
+            language_entity = models.Language.objects.get(ISO_639_1_code=language)
             new_country.languages.add(new_language)
-        
-            
-            
-        
-        
+    '''
+
     # mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 
     # result = mbz.search_artists(type="group")

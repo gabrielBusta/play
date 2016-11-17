@@ -19,6 +19,7 @@ class Country(models.Model):
     alpha2Code = models.CharField(max_length=2)
 
 
+'''
 class Artist(models.Model):
     name = models.CharField(max_length=30)
     disambiguation = models.CharField(max_length=50)
@@ -76,3 +77,4 @@ class Playlist(models.Model):
 
 class Library(models.Model):
     pass
+'''

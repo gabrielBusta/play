@@ -7,29 +7,34 @@ import json
 
 def main():
     # get every country in the world (250)
-    response = requests.get('https://restcountries.eu/rest/v1/all')
-    countries = response.json()
-    uprint(json.dumps(countries))
+    # response = requests.get('https://restcountries.eu/rest/v1/all')
+    # countries = response.json()
+    # uprint(json.dumps(countries))
 
     # uprint(countries)
 
     # load countries
-    # with codecs.open('./countries.txt', encoding='utf-8') as f:
-        # country_data = f.read()
-        # json.loads(country_data)
-        # uprint(country_data)
+    with codecs.open('./countries.json', encoding='utf-8') as f:
+        data = f.read()
+        countries = json.loads(data)
 
     # save each country to our country database
-    # for country in countries:
+    for country in countries:
         # find the data from the json
-        # name =
-        # region =
-        # subregion =
-        # population =
+        name = country['name']
+        uprint(name)
+        region = country['region']
+        uprint(region)
+        subregion = country['subregion']
+        uprint(subregion)
+        population = country['population']
+        uprint(population)
+        print()
         # timezones =
         # languages =
         # models.Country.objects.create(name=name, region=region, subregion=subregion,
         #                               population=population, languages=languages)
+        # models.Country.objects.save()
 
     # mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 

@@ -5,14 +5,22 @@ import musicbrainzngs as mbz
 def main():
     mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 
-    result = mbz.search_artists(type="group")\
+    result = mbz.search_artists(type="group")
 
     for key in result.keys():
         print(key)
 
     print("number of artist:" + str(len(result["artist-list"])))
+
     print("artist-list = ")
-    uprint(result["artist-list"])
+
+    # uprint(result["artist-list"])
+
+    for artist in result["artist-list"]:
+        print()
+        uprint(artist)
+        print()
+
     # uprint(result)
 
     models.Country.objects.all()

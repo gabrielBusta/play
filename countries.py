@@ -3,29 +3,30 @@ import sys
 import requests
 from utilities import uprint, load_json, write_json
 
+
 def main():
+    print('loading countries.json...')
     countries = load_json('./countries.json')
 
+    print('creating TimeZone and Language objects...')
     time_zones = extract_unique_time_zones(countries)
-
     languages = extract_unique_languages(countries)
-
     TimeZone_objects = create_TimeZone_objects(time_zones)
-
     Language_objects = create_Language_objects(languages)
 
-    # write new TimeZone objects into our database
+    print('saving TimeZone and Language objects...')
     for TimeZone_object in TimeZone_objects:
         TimeZone_object.save()
 
-    # write new Language objects into our database
     for Language_object in Language_objects:
         Language_object.save()
 
     # the Language and TimeZone objects must be present
     # in the database before we create the Country objects
+    print('creating Country objects')
     Country_objects = create_Country_objects(countries)
 
+    print('saving Country objects')
     for Country_object in Country_objects:
         Country_object.save()
 
@@ -109,7 +110,9 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
+            print('fetching countries from restcountries.eu...')
             response = requests.get('https://restcountries.eu/rest/v1/all')
+            print('saving to countries to countries.json...')
             write_json(response.json(), './countries.json')
 
     main()

@@ -1,8 +1,19 @@
 # To generate the DB
 ```bash
+python manage.py migrate --fake app zero
+```
+DELETE MIGRATIONS AND pycache IN ./app/migrations
+DELETE THE DATABASE
+CREATE THE DATABASE
+```bash
+python manage.py makemigrations app
+```
+```bash
+python manage.py migrate
+```
+```bash
 python countries.py <fetch>
 ```
-
 # Common Django Commands
 ## run the server at 127.0.0.1:8000
 ```bash

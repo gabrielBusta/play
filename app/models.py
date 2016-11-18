@@ -10,7 +10,7 @@ class Language(models.Model):
 
 
 class Country(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=50)
     languages = models.ManyToManyField('Language')
     region = models.CharField(max_length=50)
     subregion = models.CharField(max_length=70)

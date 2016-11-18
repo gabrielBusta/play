@@ -11,7 +11,7 @@ def main():
     with codecs.open('./countries.json', encoding='utf-8') as f:
         data = f.read()
         countries = json.loads(data)
-
+    
     # find all the timezones
     timezones = []
     for country in countries:
@@ -21,8 +21,8 @@ def main():
 
     for timezone in timezones:
         new_timezone = models.TimeZone.objects.create(UTC_offset=timezone)
-        print(new_timezone)
-        # new_timezone.save()
+        #print(new_timezone)
+        new_timezone.save()
 
     # find all the languages
     languages = []
@@ -34,10 +34,10 @@ def main():
 
     for language in languages:
         new_language = models.Language.objects.create(ISO_639_1_code=language)
-        print(new_language)
-        # new_language.save()
+        #print(new_language)
+        new_language.save()
 
-    '''
+    
     # save each country to our database
     for country in countries:
         # find the data from the json
@@ -49,17 +49,19 @@ def main():
         new_country_timezones = country['timezones']
         new_country_languages = country['languages']
 
-        new_country= models.Country.objects.create(name=name, alpha2code=alpha2code, region=region,
+        new_country= models.Country.objects.create(name=name, alpha2Code=alpha2Code, region=region,
                                                     subregion=subregion, population=population)
 
         for timezone in new_country_timezones:
             timezone_entity = models.TimeZone.objects.get(UTC_offset=timezone)
-            new_country.timezones.add(new_t)
+            new_country.timezones.add(timezone_entity)
 
         for language in new_country_languages:
             language_entity = models.Language.objects.get(ISO_639_1_code=language)
-            new_country.languages.add(new_language)
-    '''
+            new_country.languages.add(language_entity)
+            
+        new_country.save()
+    
 
     # mbz.set_useragent("play music app", "0.1", "gabrielbusta@gmail.com")
 
@@ -81,7 +83,7 @@ def main():
 
     # uprint(result)
 
-
+    
 def uprint(*objects, sep=' ', end='\n', file=sys.stdout):
     enc = file.encoding
     if enc == 'UTF-8':

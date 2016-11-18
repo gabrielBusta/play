@@ -1,3 +1,8 @@
+# To generate the DB
+```bash
+python countries.py <fetch>
+```
+
 # Common Django Commands
 ## run the server at 127.0.0.1:8000
 ```bash

@@ -6,7 +6,9 @@ import musicbrainzngs as mbz
 
 
 def main():
-    pass
+    print('loading artists.json...')
+    countries = load_json('./artists.json')
+
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')

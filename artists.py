@@ -6,8 +6,11 @@ import musicbrainzngs as mbz
 
 
 def main():
-    print('loading artists.json...')
+    sys.stdout.write('loading artists.json... ')
     artists = load_json('./artists.json')
+    sys.stdout.write('DONE\n')
+
+    
     uprint(artists[0])
 
 
@@ -19,7 +22,7 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
-            print('fetching artists from musicbrainz.org...')
+            sys.stdout.write('fetching artists from musicbrainz.org... ')
             mbz.set_useragent('play music app', '0.1', 'gabrielbusta@gmail.com')
 
             artists = []
@@ -44,7 +47,10 @@ if __name__ == '__main__':
             artists.extend(mbz.search_artists(country='NO', limit=100)['artist-list'])
             artists.extend(mbz.search_artists(country='AR', limit=100)['artist-list'])
 
-            print('saving to artists to artists.json...')
+            sys.stdout.write('DONE\n')
+
+            sys.stdout.write('saving to artists to artists.json... ')
             write_json(artists, './artists.json')
+            sys.stdout.write('DONE\n')
 
     main()

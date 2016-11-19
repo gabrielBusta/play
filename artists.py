@@ -10,8 +10,28 @@ def main():
     artists = load_json('./artists.json')
     sys.stdout.write('DONE\n')
 
-    
-    uprint(artists[0])
+    for artist in artists:
+        uprint('name: ' + artist['name'])
+        uprint('type: ' + artist.get('type', 'None'))
+        uprint('country: ' + artist['country'])
+        uprint('disambiguation: ' + artist.get('country', 'None'))
+
+        life_span = artist.get('life-span', None)
+        if life_span != None:
+
+            ended = life_span.get('ended', None)
+            if ended != None:
+                uprint('ended: ' + ended)
+
+            begin = life_span.get('begin', None)
+            if begin != None:
+                uprint('begin: ' + begin)
+
+            end = life_span.get('end', None)
+            if end != None:
+                uprint('end: ' + end)
+
+        uprint()
 
 
 if __name__ == '__main__':

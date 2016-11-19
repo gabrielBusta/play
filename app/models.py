@@ -19,19 +19,31 @@ class Country(models.Model):
     alpha2code = models.CharField(max_length=2)
 
 
-'''
 class Artist(models.Model):
     name = models.CharField(max_length=30)
-    disambiguation = models.CharField(max_length=50)
+
+    PERSON = 'Person'
+    GROUP = 'Group'
+    ORCHESTRA = 'Orchestra'
+    CHOIR = 'Choir'
+    CHARACTER = 'Character'
+    OTHER = 'Other'
+
+    CATEGORY_CHOICES = ((PERSON, 'Individual person'),
+                        (GROUP, 'Band or group of people'),
+                        (ORCHESTRA, 'Orchestra or large instrumental ensemble'),
+                        (CHOIR, 'Choir or large vocal ensemble'),
+                        (CHARACTER, 'Fictional character'),
+                        (OTHER, 'Other'))
+
+    category = models.CharField(max_length=9, choices=CATEGORY_CHOICES)
     begin_date = models.DateField()
     end_date = models.DateField()
     ended = models.BooleanField(default=False)
-    country = models.CharField(max_length="2")
-    # tags = []
-    # rating = []
-    # country = models.ForeignKey(Country)
+    country = models.ForeignKey('Country')
 
 
+'''
 class Track(models.Model):
     # TODO: ADD FILE PATH
     name = models.CharField(max_length=50)

@@ -7,7 +7,7 @@ import musicbrainzngs as mbz
 
 def main():
     print('loading artists.json...')
-    countries = load_json('./artists.json')
+    artists = load_json('./artists.json')
 
 
 if __name__ == '__main__':

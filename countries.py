@@ -118,9 +118,11 @@ if __name__ == '__main__':
 
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
-            print('fetching countries from restcountries.eu...')
+            sys.stdout.write('fetching countries from restcountries.eu... ')
             response = requests.get('https://restcountries.eu/rest/v1/all')
-            print('saving to countries to countries.json...')
+            sys.stdout.write('DONE\n')
+            sys.stdout.write('saving to countries to countries.json... ')
             write_json(response.json(), './countries.json')
+            sys.stdout.write('DONE\n')
 
     main()

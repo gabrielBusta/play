@@ -8,6 +8,7 @@ import musicbrainzngs as mbz
 def main():
     print('loading artists.json...')
     artists = load_json('./artists.json')
+    uprint(artists[0])
 
 
 if __name__ == '__main__':

@@ -20,8 +20,8 @@ class Country(models.Model):
 
 
 class Artist(models.Model):
-    name = models.CharField(max_length=30)
-
+    name = models.CharField(max_length=50)
+    '''
     PERSON = 'Person'
     GROUP = 'Group'
     ORCHESTRA = 'Orchestra'
@@ -40,8 +40,8 @@ class Artist(models.Model):
     begin_date = models.DateField()
     end_date = models.DateField()
     ended = models.BooleanField(default=False)
+    '''
     country = models.ForeignKey('Country')
-
 
 '''
 class Track(models.Model):

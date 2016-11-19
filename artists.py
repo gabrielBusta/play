@@ -1,27 +1,48 @@
 import os
 import sys
 import requests
-from utilities import uprint, load_json, write_json
 import musicbrainzngs as mbz
+from colorama import init, Fore
+from utilities import uprint, load_json, write_json
 
 
 def main():
-    sys.stdout.write('loading artists.json... ')
+    sys.stdout.write('Loading artists.json... ')
     artists = load_json('./artists.json')
-    sys.stdout.write('DONE\n')
+    sys.stdout.write(Fore.GREEN + 'DONE\n')
+
+    sys.stdout.write('Creating Artist objects... ')
+    Artist_objects = create_Artist_objects(artists)
+    sys.stdout.write(Fore.GREEN + 'DONE\n')
+
+
+def create_Artist_objects(artists):
+    Artist_objects = []
 
     for artist in artists:
-        uprint('name: ' + artist['name'])
-        uprint('type: ' + artist.get('type', 'None'))
-        uprint('country: ' + artist['country'])
-        uprint('disambiguation: ' + artist.get('country', 'None'))
+        name = artist['name']
+        Country_object = models.Country.objects.get(alpha2code=artist['country'])
+
+        Artist_object = models.Artist.objects.create(name=name, country=Country_object)
+
+        '''
+        disambiguation = artist.get('disambiguation', None)
+        if disambiguation != None:
+            Artist_object.disambiguation = disambiguation
+
+        category = artist.get('type', None)
+        if category != None:
+            Artist_object.category = category
 
         life_span = artist.get('life-span', None)
         if life_span != None:
 
             ended = life_span.get('ended', None)
             if ended != None:
-                uprint('ended: ' + ended)
+                if ended == 'true':
+                    Artist_object.ended = True
+                elif ended == 'false':
+                    Artist_object.ended = False
 
             begin = life_span.get('begin', None)
             if begin != None:
@@ -30,9 +51,7 @@ def main():
             end = life_span.get('end', None)
             if end != None:
                 uprint('end: ' + end)
-
-        uprint()
-
+        '''
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
@@ -40,9 +59,12 @@ if __name__ == '__main__':
     django.setup()
     from app import models
 
+    # initialize colorama
+    init(autoreset=True)
+
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
-            sys.stdout.write('fetching artists from musicbrainz.org... ')
+            sys.stdout.write('Fetching artists from musicbrainz.org... ')
             mbz.set_useragent('play music app', '0.1', 'gabrielbusta@gmail.com')
 
             artists = []
@@ -67,10 +89,10 @@ if __name__ == '__main__':
             artists.extend(mbz.search_artists(country='NO', limit=100)['artist-list'])
             artists.extend(mbz.search_artists(country='AR', limit=100)['artist-list'])
 
-            sys.stdout.write('DONE\n')
+            sys.stdout.write(Fore.GREEN + 'DONE\n')
 
-            sys.stdout.write('saving to artists to artists.json... ')
+            sys.stdout.write('Saving to artists to artists.json... ')
             write_json(artists, './artists.json')
-            sys.stdout.write('DONE\n')
+            sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     main()

@@ -1,5 +1,5 @@
 /* should be 250 */
--- SELECT * FROM app_country;
+-- SELECT COUNT(*) FROM app_country;
 
 /* should be 111 */
 -- SELECT COUNT(*) AS "languages" FROM app_language;

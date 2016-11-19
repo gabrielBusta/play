@@ -5,31 +5,39 @@ from utilities import uprint, load_json, write_json
 
 
 def main():
-    print('loading countries.json...')
+    sys.stdout.write('Loading countries.json... ')
     countries = load_json('./countries.json')
+    sys.stdout.write('DONE\n')
 
-    print('creating TimeZone and Language objects...')
+    sys.stdout.write('Creating TimeZone and Language objects... ')
     time_zones = extract_unique_time_zones(countries)
     languages = extract_unique_languages(countries)
     TimeZone_objects = create_TimeZone_objects(time_zones)
     Language_objects = create_Language_objects(languages)
+    sys.stdout.write('DONE\n')
 
-    print('saving TimeZone and Language objects...')
+    sys.stdout.write('Saving TimeZone and Language objects... ')
+
     for TimeZone_object in TimeZone_objects:
         TimeZone_object.save()
 
     for Language_object in Language_objects:
         Language_object.save()
 
+    sys.stdout.write('DONE\n')
+
     # the Language and TimeZone objects must be present
     # in the database before we create the Country objects
-    print('creating Country objects')
+    sys.stdout.write('Creating Country objects... ')
     Country_objects = create_Country_objects(countries)
+    sys.stdout.write('DONE\n')
 
-    print('saving Country objects')
+    sys.stdout.write('Saving Country objects... ')
+
     for Country_object in Country_objects:
         Country_object.save()
 
+    sys.stdout.write('DONE\n')
 
 def create_Country_objects(contries):
     Country_objects = []

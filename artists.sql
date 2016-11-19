@@ -1,0 +1,3 @@
+-- select * from app_country where alpha2code = 'US';
+-- select * from app_artist where country_id = 240;
+-- select count(*) from app_artist;

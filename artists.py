@@ -25,7 +25,6 @@ def create_Artist_objects(artists):
 
         Artist_object = models.Artist.objects.create(name=name, country=Country_object)
 
-        '''
         disambiguation = artist.get('disambiguation', None)
         if disambiguation != None:
             Artist_object.disambiguation = disambiguation
@@ -35,15 +34,23 @@ def create_Artist_objects(artists):
             Artist_object.category = category
 
         life_span = artist.get('life-span', None)
+
         if life_span != None:
 
             ended = life_span.get('ended', None)
-            if ended != None:
-                if ended == 'true':
-                    Artist_object.ended = True
-                elif ended == 'false':
-                    Artist_object.ended = False
 
+            if ended == 'true':
+                    Artist_object.ended = True
+            elif ended == 'false':
+                    Artist_object.ended = False
+            elif ended == None:
+                Artist_object.ended = None
+
+
+        Artist_object.save()
+
+
+'''
             begin = life_span.get('begin', None)
             if begin != None:
                 uprint('begin: ' + begin)
@@ -51,7 +58,8 @@ def create_Artist_objects(artists):
             end = life_span.get('end', None)
             if end != None:
                 uprint('end: ' + end)
-        '''
+'''
+
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')

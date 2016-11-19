@@ -1,6 +1,7 @@
 import os
 import sys
 import psycopg2
+import platform
 from colorama import init, Fore
 
 
@@ -44,20 +45,35 @@ def main(first=False):
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
         sys.stdout.write('Creating the play database... ')
-        initialize_play_db = ('CREATE DATABASE play '
-                              'WITH '
-                              'OWNER = postgres '
-                              'ENCODING = \'UTF8\' '
-                              'LC_COLLATE = \'English_United States.1252\' '
-                              'LC_CTYPE = \'English_United States.1252\' '
-                              'TABLESPACE = pg_default '
-                              'CONNECTION LIMIT = -1;')
+
+        if platform.system() == 'Windows':
+            initialize_play_db = ('CREATE DATABASE play '
+                                  'WITH '
+                                  'OWNER = postgres '
+                                  'ENCODING = \'UTF8\' '
+                                  'LC_COLLATE = \'English_United States.1252\' '
+                                  'LC_CTYPE = \'English_United States.1252\' '
+                                  'TABLESPACE = pg_default '
+                                  'CONNECTION LIMIT = -1;')
+        elif platform.system() == 'Darwin':
+            initialize_play_db = ('CREATE DATABASE play '
+                                  'WITH '
+                                  'OWNER = postgres '
+                                  'ENCODING = \'UTF8\' '
+                                  'LC_COLLATE = \'en_US.UTF-8\' '
+                                  'LC_CTYPE = \'en_US.UTF-8\' '
+                                  'TABLESPACE = pg_default '
+                                  'CONNECTION LIMIT = -1;')
+        else:
+            sys.stdout.write(Fore.RED + 'UNSUPORTED OS!\n')
+            exit(1)
 
         cursor.execute(initialize_play_db)
         sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     except psycopg2.Error as e:
-        sys.stdout.write(Fore.RED + 'ERROR')
+        sys.stdout.write(Fore.RED + 'ERROR\n')
+        sys.stdout.write(Fore.RED + e.diag.message_primary + '\n')
         exit(1)
 
     os.system('python manage.py makemigrations app')

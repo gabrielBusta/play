@@ -20,27 +20,31 @@ class Country(models.Model):
 
 
 class Artist(models.Model):
-    name = models.CharField(max_length=50)
-    '''
+    name = models.CharField(max_length=100)
+
     PERSON = 'Person'
     GROUP = 'Group'
     ORCHESTRA = 'Orchestra'
     CHOIR = 'Choir'
     CHARACTER = 'Character'
     OTHER = 'Other'
+    NONE = ''
 
     CATEGORY_CHOICES = ((PERSON, 'Individual person'),
                         (GROUP, 'Band or group of people'),
                         (ORCHESTRA, 'Orchestra or large instrumental ensemble'),
                         (CHOIR, 'Choir or large vocal ensemble'),
                         (CHARACTER, 'Fictional character'),
-                        (OTHER, 'Other'))
+                        (OTHER, 'Other'),
+                        (NONE, 'None'))
 
-    category = models.CharField(max_length=9, choices=CATEGORY_CHOICES)
-    begin_date = models.DateField()
-    end_date = models.DateField()
-    ended = models.BooleanField(default=False)
-    '''
+    category = models.CharField(max_length=9, choices=CATEGORY_CHOICES, default='', blank=True)
+    disambiguation = models.CharField(max_length=100, default='', blank=True)
+
+    # begin_date = models.DateField(default=None, blank=True, null=True)
+    # end_date = models.DateField(default=None, blank=True, null=True)
+    ended = models.NullBooleanField(blank=True, null=True)
+
     country = models.ForeignKey('Country')
 
 '''

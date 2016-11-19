@@ -10,11 +10,11 @@ def main():
 
     mbz.set_useragent('play music app', '0.1', 'gabrielbusta@gmail.com')
 
-    artists = mbz.search_artists(country='US',limit=25)['artist-list']
-
-    Country_objects = models.Country.objects.all()
-
-    write_json(artists, './artists.json')
+    artists = mbz.search_artists(country='US', limit=100)['artist-list']
+    artists = mbz.search_artists(country='MX', limit=100)['artist-list']
+    artists = mbz.search_artists(country='VE', limit=100)['artist-list']
+    print(len(artists))
+    # write_json(artists, './artists.json')
     exit(0)
 
     for key in result.keys():

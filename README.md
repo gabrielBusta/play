@@ -3,8 +3,8 @@
 python manage.py migrate --fake app zero
 ```
 DELETE MIGRATIONS AND pycache IN ./app/migrations
-DELETE THE DATABASE
-CREATE THE DATABASE
+ -> DELETE THE DATABASE
+ -> CREATE THE DATABASE
 ```bash
 python manage.py makemigrations app
 ```

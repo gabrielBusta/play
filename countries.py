@@ -48,11 +48,11 @@ def create_Country_objects(contries):
                                                        population=population)
 
         for timezone in country['timezones']:
-            TimeZone_object = models.TimeZone.objects.get(UTC_offset=timezone)
+            TimeZone_object = models.TimeZone.objects.get(utc_offset=timezone)
             Country_object.timezones.add(TimeZone_object)
 
         for language in country['languages']:
-            Language_object = models.Language.objects.get(ISO_639_1_code=language)
+            Language_object = models.Language.objects.get(iso_code=language.upper())
             Country_object.languages.add(Language_object)
 
         Country_objects.append(Country_object)
@@ -64,7 +64,7 @@ def create_Language_objects(languages):
     Language_objects = []
 
     for language in languages:
-        Language_object = models.Language.objects.create(ISO_639_1_code=language)
+        Language_object = models.Language.objects.create(iso_code=language.upper())
         Language_objects.append(Language_object)
 
     return Language_objects
@@ -74,7 +74,7 @@ def create_TimeZone_objects(time_zones):
     TimeZone_objects = []
 
     for time_zone in time_zones:
-        TimeZone_object = models.TimeZone.objects.create(UTC_offset=time_zone)
+        TimeZone_object = models.TimeZone.objects.create(utc_offset=time_zone)
         TimeZone_objects.append(TimeZone_object)
 
     return TimeZone_objects
@@ -103,7 +103,7 @@ def extract_unique_languages(countries):
 
 
 if __name__ == '__main__':
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
     import django
     django.setup()
     from app import models

@@ -2,11 +2,11 @@ from django.db import models
 
 
 class TimeZone(models.Model):
-    UTC_offset = models.CharField(max_length=9)
+    utc_offset = models.CharField(max_length=9)
 
 
 class Language(models.Model):
-    ISO_639_1_code = models.CharField(max_length=2)
+    iso_code = models.CharField(max_length=2)
 
 
 class Country(models.Model):

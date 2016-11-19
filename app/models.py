@@ -16,7 +16,7 @@ class Country(models.Model):
     subregion = models.CharField(max_length=70)
     population = models.PositiveIntegerField()
     timezones = models.ManyToManyField('TimeZone')
-    alpha2Code = models.CharField(max_length=2)
+    alpha2code = models.CharField(max_length=2)
 
 
 '''

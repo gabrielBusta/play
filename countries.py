@@ -36,13 +36,13 @@ def create_Country_objects(contries):
 
     for country in contries:
         name = country['name']
-        alpha2Code = country['alpha2Code']
+        alpha2code = country['alpha2Code']
         region = country['region']
         subregion = country['subregion']
         population = country['population']
 
         Country_object = models.Country.objects.create(name=name,
-                                                       alpha2Code=alpha2Code,
+                                                       alpha2code=alpha2code,
                                                        region=region,
                                                        subregion=subregion,
                                                        population=population)

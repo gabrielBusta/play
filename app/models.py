@@ -41,8 +41,6 @@ class Artist(models.Model):
     category = models.CharField(max_length=9, choices=CATEGORY_CHOICES, default='', blank=True)
     disambiguation = models.CharField(max_length=100, default='', blank=True)
 
-    # begin_date = models.DateField(default=None, blank=True, null=True)
-    # end_date = models.DateField(default=None, blank=True, null=True)
     ended = models.NullBooleanField(blank=True, null=True)
 
     country = models.ForeignKey('Country')

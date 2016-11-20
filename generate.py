@@ -2,7 +2,7 @@ import os
 import sys
 import psycopg2
 import platform
-from colorama import init, Fore
+from colorama import init, Fore, Back
 
 
 def main(first=False):
@@ -81,6 +81,10 @@ def main(first=False):
     os.system('python manage.py migrate')
 
     os.system('python countries.py')
+
+    os.system('python artists.py')
+
+    sys.stdout.write(Fore.BLACK + Back.YELLOW + ':)' + '\n')
 
 
 if __name__ == '__main__':

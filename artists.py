@@ -50,17 +50,6 @@ def create_Artist_objects(artists):
         Artist_object.save()
 
 
-'''
-            begin = life_span.get('begin', None)
-            if begin != None:
-                uprint('begin: ' + begin)
-
-            end = life_span.get('end', None)
-            if end != None:
-                uprint('end: ' + end)
-'''
-
-
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
     import django

@@ -9,8 +9,8 @@ def main():
     sys.stdout.write('Loading releases-tiny.json... ')
     releases = load_json('./releases-tiny.json')
     sys.stdout.write(Fore.GREEN + 'DONE\n')
-    for release in releases:
-        pretty_print_json(release)
+    # for release in releases:
+        # pretty_print_json(release)
 
 
 if __name__ == '__main__':

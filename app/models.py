@@ -50,24 +50,17 @@ class Artist(models.Model):
 
 
 class Release(models.Model):
-    barcode = models.BigIntegerField(null=True, blank=True)
+    barcode = models.BigIntegerField(null=True, blank=True, default=None)
     country = models.ForeignKey('Country', null=True)
     mbid = models.CharField(max_length=36)
-    title = models.CharField(max_length=50)
-    status = models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
+    status = models.CharField(max_length=50)
 
     ALBUM = 'Album'
     SINGLE = 'Single'
     EXTENDED_PLAY = 'EP'
-    BROADCAST = 'Broadcast'
-    OTHER= 'Other'
 
-    RELEASE_TYPE_CHOICES = ((ALBUM, 'Album'),
-                            (SINGLE, 'Single'),
-                            (EXTENDED_PLAY, 'EP'),
-                            (BROADCAST, 'Broadcast'))
-
-    release_type = models.CharField(max_length=20, choices=RELEASE_TYPE_CHOICES)
+    release_type = models.CharField(max_length=20)
 
 
 class Track(models.Model):

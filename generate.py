@@ -84,9 +84,7 @@ def main(first=False):
 
     os.system('python artists.py')
 
-    os.system('python releases.py')
-
-    sys.stdout.write(':)' + '\n')
+    os.system('python albums.py')
 
 
 if __name__ == '__main__':

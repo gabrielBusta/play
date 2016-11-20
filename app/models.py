@@ -46,21 +46,15 @@ class Artist(models.Model):
 
     country = models.ForeignKey('Country')
 
-    releases = models.ManyToManyField('Language')
+    albums = models.ManyToManyField('Album')
 
 
-class Release(models.Model):
+class Album(models.Model):
     barcode = models.BigIntegerField(null=True, blank=True, default=None)
     country = models.ForeignKey('Country', null=True)
     mbid = models.CharField(max_length=36)
-    title = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
-
-    ALBUM = 'Album'
-    SINGLE = 'Single'
-    EXTENDED_PLAY = 'EP'
-
-    release_type = models.CharField(max_length=20)
+    title = models.CharField(max_length=300)
+    status = models.CharField(max_length=50, blank=True, default='')
 
 
 class Track(models.Model):
@@ -68,9 +62,7 @@ class Track(models.Model):
     disamgibuaition = models.CharField(max_length=50)
     length = models.IntegerField()
     #duration = models.DurationField()
-    # TODO: ADD Artist AND Release ForeignKey
     artist = models.ForeignKey('Artist')
-    release = models.ForeignKey('Release')
 
 
 class Playlist(models.Model):

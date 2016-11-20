@@ -20,6 +20,7 @@ class Country(models.Model):
 
 
 class Artist(models.Model):
+    mbid = models.CharField(max_length=36)
     name = models.CharField(max_length=100)
 
     PERSON = 'Person'
@@ -47,7 +48,6 @@ class Artist(models.Model):
 
 
 class Track(models.Model):
-    # TODO: ADD FILE PATH
     name = models.CharField(max_length=50)
     disamgibuaition = models.CharField(max_length=50)
     length = models.IntegerField()

@@ -3,7 +3,7 @@ import sys
 import requests
 import musicbrainzngs as mbz
 from colorama import init, Fore
-from utilities import uprint, load_json, write_json
+from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 def main():
@@ -21,9 +21,12 @@ def create_Artist_objects(artists):
 
     for artist in artists:
         name = artist['name']
+        mbid = artist['id']
         Country_object = models.Country.objects.get(alpha2code=artist['country'])
 
-        Artist_object = models.Artist.objects.create(name=name, country=Country_object)
+        Artist_object = models.Artist.objects.create(name=name,
+                                                     country=Country_object,
+                                                     mbid=mbid)
 
         disambiguation = artist.get('disambiguation', None)
         if disambiguation != None:
@@ -65,26 +68,23 @@ if __name__ == '__main__':
             mbz.set_useragent('play music app', '0.1', 'gabrielbusta@gmail.com')
 
             artists = []
-            artists = mbz.search_artists(country='US', limit=100)['artist-list']
-            artists.extend(mbz.search_artists(country='MX', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='VE', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='FR', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='JP', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='KR', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='BR', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='CN', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='GB', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='RU', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='IT', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='ES', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='NG', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='ZA', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='IN', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='CA', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='AU', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='NZ', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='NO', limit=100)['artist-list'])
-            artists.extend(mbz.search_artists(country='AR', limit=100)['artist-list'])
+            artists = mbz.search_artists(country='US', limit=50)['artist-list']
+            artists.extend(mbz.search_artists(country='MX', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='VE', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='FR', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='JP', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='KR', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='BR', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='CN', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='GB', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='RU', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='IT', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='ES', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='NG', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='ZA', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='IN', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='CA', limit=50)['artist-list'])
+            artists.extend(mbz.search_artists(country='AR', limit=50)['artist-list'])
 
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 

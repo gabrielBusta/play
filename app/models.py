@@ -49,11 +49,14 @@ class Artist(models.Model):
 class Track(models.Model):
     # TODO: ADD FILE PATH
     name = models.CharField(max_length=50)
-    duration = models.DurationField()
+    disamgibuaition= models.CharField(max_length=50)
+    length= models.IntegerField()
+    #duration = models.DurationField()
     # TODO: ADD Artist AND Release ForeignKey
+    artist=models.ForeignKey('Artist')
+    release=models.ForeignKey('Release')
 
-
-class ReleaseGroup(models.Model):
+class Release(models.Model):
     label = models.ForeignKey(Label)
     # TODO: ADD Artist RELATIONSHIP
     country = models.ForeignKey(Country)

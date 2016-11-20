@@ -29,7 +29,6 @@ if __name__ == '__main__':
 
             releases = []
             for Artist_object in Artist_objects:
-                uprint(Artist_object.name)
                 releases.extend(mbz.search_releases(artist=Artist_object.name, limit=5)['release-list'])
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 

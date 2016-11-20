@@ -45,7 +45,7 @@ class Artist(models.Model):
 
     country = models.ForeignKey('Country')
 
-'''
+
 class Track(models.Model):
     # TODO: ADD FILE PATH
     name = models.CharField(max_length=50)
@@ -53,36 +53,26 @@ class Track(models.Model):
     # TODO: ADD Artist AND Release ForeignKey
 
 
-class Label(models.Model):
-    name = models.CharField(max_length=50)
-    label_type = models.CharField(max_length=50)
-    country = models.CharField(max_length="2")
-    # country = models.ForeignKey(Country)
-    founded_date = models.DateField()
-    dissolved_date = models.DateField()
-    dissolved = models.BooleanField(default=False)
-    disambiguation = models.CharField()
-
-
-class Release(models.Model):
+class ReleaseGroup(models.Model):
     label = models.ForeignKey(Label)
     # TODO: ADD Artist RELATIONSHIP
     country = models.ForeignKey(Country)
     name = models.CharField(max_length=50)
-    release_date = models.DateField()
+    disambiguation=models.CharField(max_length=100)
 
-    ALBUM = 'AL'
-    SINGLE = 'SI'
+    ALBUM = 'Album'
+    SINGLE = 'Single'
     EXTENDED_PLAY = 'EP'
+    BROADCAST= 'Broadcast'
+    OTHER= 'Other'
 
     RELEASE_TYPE_CHOICES = ((ALBUM, 'Album'),
                             (SINGLE, 'Single'),
-                            (EXTENDED_PLAY, 'EP'))
+                            (EXTENDED_PLAY, 'EP'),
+                            (BROADCAST, 'Broadcast'))
 
-    release_type = models.CharField(max_length=2, choices=RELEASE_TYPE_CHOICES)
+    release_type = models.CharField(max_length=20, choices=RELEASE_TYPE_CHOICES)
 
-    # TODO: ADD LIST OF GENRES
-    language = models.CharField(max_length=20)
 
 
 class Playlist(models.Model):
@@ -91,4 +81,3 @@ class Playlist(models.Model):
 
 class Library(models.Model):
     pass
-'''

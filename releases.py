@@ -2,13 +2,15 @@ import os
 import sys
 import musicbrainzngs as mbz
 from colorama import init, Fore
-from utilities import uprint, load_json, write_json
+from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 def main():
-    sys.stdout.write('Loading releases.json... ')
-    releases = load_json('./releases.json')
+    sys.stdout.write('Loading releases-tiny.json... ')
+    releases = load_json('./releases-tiny.json')
     sys.stdout.write(Fore.GREEN + 'DONE\n')
+    for release in releases:
+        pretty_print_json(release)
 
 
 if __name__ == '__main__':
@@ -23,7 +25,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
             sys.stdout.write('Fetching releases from musicbrainz.org... ')
-            
+
             mbz.set_useragent('academic database project', '0.1', 'abbyyy23@gmail.com')
 
             Artist_objects = models.Artist.objects.all()

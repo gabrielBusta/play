@@ -49,24 +49,24 @@ class Artist(models.Model):
 class Track(models.Model):
     # TODO: ADD FILE PATH
     name = models.CharField(max_length=50)
-    disamgibuaition= models.CharField(max_length=50)
-    length= models.IntegerField()
+    disamgibuaition = models.CharField(max_length=50)
+    length = models.IntegerField()
     #duration = models.DurationField()
     # TODO: ADD Artist AND Release ForeignKey
-    artist=models.ForeignKey('Artist')
-    release=models.ForeignKey('Release')
+    artist = models.ForeignKey('Artist')
+    release = models.ForeignKey('Release')
+
 
 class Release(models.Model):
-    label = models.ForeignKey(Label)
     # TODO: ADD Artist RELATIONSHIP
-    country = models.ForeignKey(Country)
+    country = models.ForeignKey('Country')
     name = models.CharField(max_length=50)
-    disambiguation=models.CharField(max_length=100)
+    disambiguation = models.CharField(max_length=100)
 
     ALBUM = 'Album'
     SINGLE = 'Single'
     EXTENDED_PLAY = 'EP'
-    BROADCAST= 'Broadcast'
+    BROADCAST = 'Broadcast'
     OTHER= 'Other'
 
     RELEASE_TYPE_CHOICES = ((ALBUM, 'Album'),
@@ -75,7 +75,6 @@ class Release(models.Model):
                             (BROADCAST, 'Broadcast'))
 
     release_type = models.CharField(max_length=20, choices=RELEASE_TYPE_CHOICES)
-
 
 
 class Playlist(models.Model):

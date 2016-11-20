@@ -23,6 +23,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
             sys.stdout.write('Fetching releases from musicbrainz.org... ')
+            
             mbz.set_useragent('academic database project', '0.1', 'abbyyy23@gmail.com')
 
             Artist_objects = models.Artist.objects.all()

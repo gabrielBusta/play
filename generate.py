@@ -84,7 +84,7 @@ def main(first=False):
 
     os.system('python artists.py')
 
-    sys.stdout.write(Fore.BLACK + Back.YELLOW + ':)' + '\n')
+    sys.stdout.write(':)' + '\n')
 
 
 if __name__ == '__main__':

@@ -5,9 +5,12 @@ from colorama import init, Fore
 from utilities import uprint, load_json, write_json, pretty_print_json
 
 
+json_file = './json/artists.json'
+
+
 def main():
     sys.stdout.write('Loading artists.json... ')
-    artists = load_json('./artists.json')
+    artists = load_json(json_file)
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     sys.stdout.write('Creating Artist objects... ')
@@ -88,7 +91,7 @@ if __name__ == '__main__':
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
             sys.stdout.write('Saving to artists to artists.json... ')
-            write_json(artists, './artists.json')
+            write_json(artists, json_file)
             sys.stdout.write(Fore.GREEN + 'DONE\n')
         else:
             sys.stdout.write(Fore.RED + 'ERROR\n')

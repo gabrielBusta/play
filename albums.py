@@ -5,9 +5,12 @@ from colorama import init, Fore
 from utilities import uprint, load_json, write_json, pretty_print_json
 
 
+json_file = './json/albums.json'
+
+
 def main():
     sys.stdout.write('Loading albums.json... ')
-    albums = load_json('./albums.json')
+    albums = load_json(json_file)
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     sys.stdout.write('Creating Album objects... ')
@@ -81,7 +84,7 @@ if __name__ == '__main__':
                                                  release_type=["album"],
                                                  limit=limit)['release-list']
                 # we need to record the mbid of the artist used to obtain these albums.
-                # we do this by adding it as a key to the dict we'll save a JSON.
+                # we do this by adding it as a key to the dict we'll save as JSON.
                 for album in album_list:
                     album['artist'] = artist
 
@@ -90,7 +93,7 @@ if __name__ == '__main__':
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
             sys.stdout.write('Saving to albums to albums.json... ')
-            write_json(albums, './albums.json')
+            write_json(albums, json_file)
             sys.stdout.write(Fore.GREEN + 'DONE\n')
         else:
             sys.stdout.write(Fore.RED + 'ERROR\n')

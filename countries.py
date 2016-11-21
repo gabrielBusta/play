@@ -5,9 +5,12 @@ from colorama import init, Fore
 from utilities import uprint, load_json, write_json
 
 
+countries_json_file = './json/countries.json'
+
+
 def main():
     sys.stdout.write('Loading countries.json... ')
-    countries = load_json('./countries.json')
+    countries = load_json(countries_json_file)
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     sys.stdout.write('Creating TimeZone and Language objects... ')
@@ -100,7 +103,7 @@ if __name__ == '__main__':
             response = requests.get('https://restcountries.eu/rest/v1/all')
             sys.stdout.write(Fore.GREEN + 'DONE\n')
             sys.stdout.write('Saving to countries to countries.json... ')
-            write_json(response.json(), './countries.json')
+            write_json(response.json(), countries_json_file)
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     main()

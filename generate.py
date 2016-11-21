@@ -88,7 +88,7 @@ def main(first=False):
     os.system('python albums.py')
 
     sys.stdout.write('Generating database schema... ')
-    os.system('java -jar schemaSpy_5.0.0.jar -t pgsql -db play -host 127.0.0.1 -u postgres -p default -o schema -dp postgresql-9.4.1212.jre6.jar -s public -noads')
+    os.system('java -jar ./jar/schemaSpy_5.0.0.jar -t pgsql -db play -host 127.0.0.1 -u postgres -p default -o schema -dp ./jar/postgresql-9.4.1212.jre6.jar -s public -noads')
 
 if __name__ == '__main__':
     # initialize colorama

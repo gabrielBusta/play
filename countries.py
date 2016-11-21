@@ -13,10 +13,8 @@ def main():
     sys.stdout.write('Creating TimeZone and Language objects... ')
     time_zones = extract_unique_time_zones(countries)
     languages = extract_unique_languages(countries)
-
     create_TimeZone_objects(time_zones)
     create_Language_objects(languages)
-
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     # the Language and TimeZone objects must be present
@@ -28,27 +26,31 @@ def main():
 
 def create_Country_objects(contries):
     for country in contries:
-        name = country['name']
-        alpha2code = country['alpha2Code']
-        region = country['region']
-        subregion = country['subregion']
-        population = country['population']
+        create_Country_object(country)
 
-        Country_object = models.Country.objects.create(name=name,
-                                                       alpha2code=alpha2code,
-                                                       region=region,
-                                                       subregion=subregion,
-                                                       population=population)
 
-        for timezone in country['timezones']:
-            TimeZone_object = models.TimeZone.objects.get(utc_offset=timezone)
-            Country_object.timezones.add(TimeZone_object)
+def create_Country_object(country):
+    name = country['name']
+    alpha2code = country['alpha2Code']
+    region = country['region']
+    subregion = country['subregion']
+    population = country['population']
 
-        for language in country['languages']:
-            Language_object = models.Language.objects.get(iso_code=language.upper())
-            Country_object.languages.add(Language_object)
+    Country_object = models.Country.objects.create(name=name,
+                                                   alpha2code=alpha2code,
+                                                   region=region,
+                                                   subregion=subregion,
+                                                   population=population)
 
-        Country_object.save()
+    for timezone in country['timezones']:
+        TimeZone_object = models.TimeZone.objects.get(utc_offset=timezone)
+        Country_object.timezones.add(TimeZone_object)
+
+    for language in country['languages']:
+        Language_object = models.Language.objects.get(iso_code=language.upper())
+        Country_object.languages.add(Language_object)
+
+    Country_object.save()
 
 
 def create_Language_objects(languages):

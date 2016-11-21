@@ -38,11 +38,11 @@ def main(first=False):
                                          'FROM pg_stat_activity '
                                          'WHERE pid <> pg_backend_pid() AND datname = \'play\';')
             cursor.execute(kill_external_connections)
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
+            sys.stdout.write(Fore.GREEN + 'OK\n')
 
             sys.stdout.write('Deleting the play database... ')
             cursor.execute('DROP DATABASE play;')
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
+            sys.stdout.write(Fore.GREEN + 'OK\n')
 
         sys.stdout.write('Creating the play database... ')
 
@@ -65,11 +65,12 @@ def main(first=False):
                                   'TABLESPACE = pg_default '
                                   'CONNECTION LIMIT = -1;')
         else:
-            sys.stdout.write(Fore.RED + 'UNSUPORTED OS!\n')
+            sys.stdout.write(Fore.RED + 'ERROR\n')
+            sys.stdout.write(Fore.RED + 'Unsuported OS!\n')
             exit(1)
 
         cursor.execute(initialize_play_db)
-        sys.stdout.write(Fore.GREEN + 'DONE\n')
+        sys.stdout.write(Fore.GREEN + 'OK\n')
 
     except psycopg2.Error as e:
         sys.stdout.write(Fore.RED + 'ERROR\n')
@@ -86,6 +87,8 @@ def main(first=False):
 
     os.system('python albums.py')
 
+    sys.stdout.write('Generating database schema... ')
+    os.system('java -jar schemaSpy_5.0.0.jar -t pgsql -db play -host 127.0.0.1 -u postgres -p default -o schema -dp postgresql-9.4.1212.jre6.jar -s public -noads')
 
 if __name__ == '__main__':
     # initialize colorama

@@ -11,38 +11,49 @@ def main():
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     sys.stdout.write('Creating Album objects... ')
+    create_Album_objects(albums)
+    sys.stdout.write(Fore.GREEN + 'OK\n')
+
+
+def create_Album_objects(albums):
     for album in albums:
-        alpha2code = album.get('country', None)
-        if alpha2code != None:
-            try:
-                Country_object = models.Country.objects.get(alpha2code=alpha2code)
-            except:
-                continue
+        create_Album_object(album)
 
-        barcode = album.get('barcode', None)
-        mbid = album['id']
-        title = album['title']
-        status = album.get('status', None)
 
-        artist = album['artist']
+def create_Album_object(album):
+    alpha2code = album.get('country', None)
 
-        Artist_object = models.Artist.objects.get(mbid=artist)
+    Country_object = None
+    if alpha2code != None:
+        try:
+            Country_object = models.Country.objects.get(alpha2code=alpha2code)
+        except:
+            # Our Country object was not found in the database. Therefore,
+            # we stop executing this function by returning control to the caller.
+            return
 
-        Album_object = models.Album.objects.create(country=Country_object,
-                                                   mbid=mbid,
-                                                   title=title)
+    barcode = album.get('barcode', None)
+    album_mbid = album['id']
+    title = album['title']
+    status = album.get('status', None)
 
-        if status != None:
-            Album_object.status = status
+    Album_object = models.Album.objects.create(country=Country_object,
+                                               mbid=album_mbid,
+                                               title=title)
 
-        if barcode != None and barcode != '':
-            Album_object.barcode = int(barcode)
+    if status != None:
+        Album_object.status = status
 
-        Album_object.save()
+    if barcode != None and barcode != '':
+        Album_object.barcode = int(barcode)
 
-        Artist_object.albums.add(Album_object)
+    Album_object.save()
 
-    sys.stdout.write(Fore.GREEN + 'DONE\n')
+    artist_mbid = album['artist']
+    Artist_object = models.Artist.objects.get(mbid=artist_mbid)
+    Artist_object.albums.add(Album_object)
+    Artist_object.save()
+
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
@@ -69,6 +80,8 @@ if __name__ == '__main__':
                 album_list = mbz.browse_releases(artist=artist,
                                                  release_type=["album"],
                                                  limit=limit)['release-list']
+                # we need to record the mbid of the artist used to obtain these albums.
+                # we do this by adding it as a key to the dict we'll save a JSON.
                 for album in album_list:
                     album['artist'] = artist
 

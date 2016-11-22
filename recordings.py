@@ -8,15 +8,32 @@ from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 def main():
-    pass
-    '''
-    tracks = []
+    recordings = []
     for json_file in os.listdir('./json/recordings'):
-        tracks.extend(load_json('./json/recordings/' + json_file))
-    for t in tracks:
-        pretty_print_json(tracks)
-    '''
+        recordings.extend(load_json('./json/recordings/' + json_file))
 
+    for recording in recordings:
+        create_Recording_object(recording)
+
+
+def create_Recording_object(recording):
+    Artist_object = models.Artist.objects.get(mbid=recording['artist'])
+    Album_object = models.Album.objects.get(mbid=recording['album'])
+    mbid = recording['id']
+    title = recording['title']
+    length = recording.get('length', None)
+
+    Recording_object = models.Recording.objects.create(mbid=mbid,
+                                                       title=title,
+                                                       album=Album_object,
+                                                       artist=Artist_object)
+    if length != None:
+        length = int(length)
+        Recording_object.length = length
+    else:
+        Recording_object.length = None
+
+    Recording_object.save()
 
 
 if __name__ == '__main__':
@@ -31,7 +48,7 @@ if __name__ == '__main__':
     if len(sys.argv) == 2:
         if sys.argv[1] == 'fetch':
             sys.stdout.write('Setting up musicbrainz.org user agent... ')
-            mbz.set_useragent('database project', '0.1', 'gabrielbusta@gmail.com')
+            mbz.set_useragent('project', '0.0', 'bustamante.ulysses.pm@gmail.com ')
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
             sys.stdout.write('Fetching recordings from musicbrainz.org ')
@@ -83,7 +100,7 @@ if __name__ == '__main__':
                         recording['artist'] = Artist_object.mbid
 
                     i += 1
-                    with open('./json/recordings/a-recordings-' + str(i) + '.json', mode='w', encoding='utf-8') as j:
+                    with open('./json/recordings/b-recordings-' + str(i) + '.json', mode='w', encoding='utf-8') as j:
                         json.dump(recordings, j)
                         f.write(album_mbid + ',')
 

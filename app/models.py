@@ -57,10 +57,10 @@ class Album(models.Model):
     status = models.CharField(max_length=50, blank=True, default='')
 
 
-class Track(models.Model):
+class Recording(models.Model):
     mbid = models.CharField(max_length=36)
-    title = models.CharField(max_length=50)
-    length = models.IntegerField()
+    title = models.CharField(max_length=300)
+    length = models.IntegerField(null=True, blank=True, default=None)
     artist = models.ForeignKey('Artist')
     album = models.ForeignKey('Album')
 

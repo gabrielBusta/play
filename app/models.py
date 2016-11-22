@@ -79,12 +79,9 @@ class Profile(models.Model):
 
     gender = models.CharField(max_length=5, choices=GENDER_CHOICES, default='', blank=True)
 
+    recordings = models.ManyToManyField('Recording')
+
 
 class Playlist(models.Model):
     recordings = models.ManyToManyField('Recording')
     library = models.ForeignKey('Library')
-
-
-class Library(models.Model):
-    recordings = models.ManyToManyField('Recording')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)

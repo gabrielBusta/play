@@ -68,12 +68,12 @@ if __name__ == '__main__':
 
             if platform.system() == 'Windows':
                 sys.stdout.write(Fore.BLUE + 'using gabriel.txt\n')
-                with open('./gabriel.txt', 'r') as f:
+                with open('./logs/gabriel.txt', 'r') as f:
                     string = f.read()
                     album_mbids = [album_mbid for album_mbid in string.split(',') if album_mbid != '']
             elif platform.system() == 'Darwin':
                 sys.stdout.write(Fore.BLUE + 'Using abby.txt\'s\n')
-                with open('./abby.txt', 'r') as f:
+                with open('./logs/abby.txt', 'r') as f:
                     string = f.read()
                     album_mbids = [album_mbid for album_mbid in string.split(',') if album_mbid != '']
             else:

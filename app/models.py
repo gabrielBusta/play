@@ -58,11 +58,11 @@ class Album(models.Model):
 
 
 class Track(models.Model):
-    name = models.CharField(max_length=50)
-    disamgibuaition = models.CharField(max_length=50)
+    mbid = models.CharField(max_length=36)
+    title = models.CharField(max_length=50)
     length = models.IntegerField()
-    #duration = models.DurationField()
     artist = models.ForeignKey('Artist')
+    album = models.ForeignKey('Album')
 
 
 class Playlist(models.Model):

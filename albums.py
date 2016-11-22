@@ -78,15 +78,15 @@ if __name__ == '__main__':
 
             albums = []
             for Artist_object in Artist_objects:
-                artist = Artist_object.mbid
+                artist_mbid = Artist_object.mbid
                 limit = 15
-                album_list = mbz.browse_releases(artist=artist,
+                album_list = mbz.browse_releases(artist=artist_mbid,
                                                  release_type=["album"],
                                                  limit=limit)['release-list']
                 # we need to record the mbid of the artist used to obtain these albums.
                 # we do this by adding it as a key to the dict we'll save as JSON.
                 for album in album_list:
-                    album['artist'] = artist
+                    album['artist'] = artist_mbid
 
                 albums.extend(album_list)
 

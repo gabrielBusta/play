@@ -5,12 +5,12 @@ from colorama import init, Fore
 from utilities import uprint, load_json, write_json
 
 
-countries_json_file = './json/countries.json'
+json_file = './json/countries.json'
 
 
 def main():
     sys.stdout.write('Loading countries.json... ')
-    countries = load_json(countries_json_file)
+    countries = load_json(json_file)
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     sys.stdout.write('Creating TimeZone and Language objects... ')
@@ -18,13 +18,13 @@ def main():
     languages = extract_unique_languages(countries)
     create_TimeZone_objects(time_zones)
     create_Language_objects(languages)
-    sys.stdout.write(Fore.GREEN + 'DONE\n')
+    sys.stdout.write(Fore.GREEN + 'OK\n')
 
     # the Language and TimeZone objects must be present
     # in the database before we create the Country objects!
     sys.stdout.write('Creating Country objects... ')
     create_Country_objects(countries)
-    sys.stdout.write(Fore.GREEN + 'DONE\n')
+    sys.stdout.write(Fore.GREEN + 'OK\n')
 
 
 def create_Country_objects(contries):
@@ -103,7 +103,7 @@ if __name__ == '__main__':
             response = requests.get('https://restcountries.eu/rest/v1/all')
             sys.stdout.write(Fore.GREEN + 'DONE\n')
             sys.stdout.write('Saving to countries to countries.json... ')
-            write_json(response.json(), countries_json_file)
+            write_json(response.json(), json_file)
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     main()

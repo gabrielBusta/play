@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class TimeZone(models.Model):
@@ -46,10 +47,9 @@ class Artist(models.Model):
 
     country = models.ForeignKey('Country')
 
-    albums = models.ManyToManyField('Album')
-
 
 class Album(models.Model):
+    artist = models.ForeignKey('Artist')
     barcode = models.BigIntegerField(null=True, blank=True, default=None)
     country = models.ForeignKey('Country', null=True)
     mbid = models.CharField(max_length=36)
@@ -65,9 +65,26 @@ class Recording(models.Model):
     album = models.ForeignKey('Album')
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    country = models.ForeignKey('Country')
+
+    MALE = 'M'
+    FEMALE = 'F'
+    OTHER = 'Other'
+
+    GENDER_CHOICES = ((MALE, 'Male'),
+                      (FEMALE, 'Female'),
+                      (OTHER, 'Other'))
+
+    gender = models.CharField(max_length=5, choices=GENDER_CHOICES, default='', blank=True)
+
+
 class Playlist(models.Model):
-    pass
+    recordings = models.ManyToManyField('Recording')
+    library = models.ForeignKey('Library')
 
 
 class Library(models.Model):
-    pass
+    recordings = models.ManyToManyField('Recording')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)

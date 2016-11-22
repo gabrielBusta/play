@@ -2,10 +2,12 @@ import os
 import sys
 import psycopg2
 import platform
+import time
 from colorama import init, Fore, Back
 
 
 def main(first=False):
+    start_time = time.time()
     os.system('python manage.py migrate --fake app zero')
 
     sys.stdout.write('Deleting contents of \'migrations\' directory... ')
@@ -91,6 +93,11 @@ def main(first=False):
 
     sys.stdout.write('Generating database schema... ')
     os.system('java -jar ./jar/schemaSpy_5.0.0.jar -t pgsql -db play -host 127.0.0.1 -u postgres -p default -o schema -dp ./jar/postgresql-9.4.1212.jre6.jar -s public -noads')
+
+    seconds = time.time() - start_time
+    minutes = seconds / 60.0
+    sys.stdout.write('\n' + Fore.BLUE + 'Total execution time:\nseconds: ' + str(seconds) + '\nminutes: ' + str(minutes) + '\n')
+
 
 if __name__ == '__main__':
     # initialize colorama

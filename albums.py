@@ -40,9 +40,13 @@ def create_Album_object(album):
     title = album['title']
     status = album.get('status', None)
 
+    artist_mbid = album['artist']
+    Artist_object = models.Artist.objects.get(mbid=artist_mbid)
+
     Album_object = models.Album.objects.create(country=Country_object,
                                                mbid=album_mbid,
-                                               title=title)
+                                               title=title,
+                                               artist=Artist_object)
 
     if status != None:
         Album_object.status = status
@@ -51,11 +55,6 @@ def create_Album_object(album):
         Album_object.barcode = int(barcode)
 
     Album_object.save()
-
-    artist_mbid = album['artist']
-    Artist_object = models.Artist.objects.get(mbid=artist_mbid)
-    Artist_object.albums.add(Album_object)
-    Artist_object.save()
 
 
 if __name__ == '__main__':

@@ -16,12 +16,8 @@ def main():
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     sys.stdout.write('Creating Recording objects... ')
-    i = 0
     for recording in recordings:
-        if i > 10:
-            break
         create_Recording_object(recording)
-        i += 1
     sys.stdout.write(Fore.GREEN + 'OK\n')
 
 

@@ -84,4 +84,4 @@ class Profile(models.Model):
 
 class Playlist(models.Model):
     recordings = models.ManyToManyField('Recording')
-    library = models.ForeignKey('Library')
+    library = models.ForeignKey('Profile')

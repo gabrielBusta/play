@@ -1,5 +1,6 @@
 import os
 import sys
+import platform
 import musicbrainzngs as mbz
 import json
 from colorama import init, Fore
@@ -8,11 +9,13 @@ from utilities import uprint, load_json, write_json, pretty_print_json
 
 def main():
     pass
-    # tracks = []
-    # for json_file in os.listdir('./json/recordings'):
-        # tracks.extend(load_json('./json/recordings/' + json_file))
-    # for t in tracks:
-        # pretty_print_json(tracks)
+    '''
+    tracks = []
+    for json_file in os.listdir('./json/recordings'):
+        tracks.extend(load_json('./json/recordings/' + json_file))
+    for t in tracks:
+        pretty_print_json(tracks)
+    '''
 
 
 
@@ -31,15 +34,45 @@ if __name__ == '__main__':
             mbz.set_useragent('database project', '0.1', 'gabrielbusta@gmail.com')
             sys.stdout.write(Fore.GREEN + 'DONE\n')
 
-            sys.stdout.write('Fetching recordings from musicbrainz.org... ')
-            Album_objects = models.Album.objects.all()
+            sys.stdout.write('Fetching recordings from musicbrainz.org ')
+
+            # Album_objects = list(models.Album.objects.all())
+
+            '''
+            with open('./abby.txt', 'w') as f:
+                for a in range(0, int(len(Album_objects) / 2)):
+                    f.write(Album_objects[a].mbid + ',')
+
+            with open('./gabriel.txt', 'w') as f:
+                for a in range(int(len(Album_objects) / 2), len(Album_objects)):
+                    f.write(Album_objects[a].mbid + ',')
+            '''
+
+
+            if platform.system() == 'Windows':
+                sys.stdout.write(Fore.BLUE + 'using gabriel.txt\n')
+                with open('./gabriel.txt', 'r') as f:
+                    string = f.read()
+                    album_mbids = [album_mbid for album_mbid in string.split(',') if album_mbid != '']
+            elif platform.system() == 'Darwin':
+                sys.stdout.write(Fore.BLUE + 'Using abby.txt\'s\n')
+                with open('./abby.txt', 'r') as f:
+                    string = f.read()
+                    album_mbids = [album_mbid for album_mbid in string.split(',') if album_mbid != '']
+            else:
+                sys.stdout.write(Fore.RED + 'ERROR\n')
+                sys.stdout.write(Fore.RED + 'Unsuported OS!\n')
+                exit(1)
 
             with open('fetched.txt', 'a') as f:
                 i = 0
-                for Album_object in Album_objects:
-                    album_mbid = Album_object.mbid
+                for album_mbid in album_mbids:
+                    try:
+                        Album_object = models.Album.objects.get(mbid=album_mbid)
+                    except:
+                        continue
                     limit = 15
-                    recordings = mbz.browse_recordings(release=album_mbid,
+                    recordings = mbz.browse_recordings(release=Album_object.mbid,
                                                        limit=limit)['recording-list']
                     for recording in recordings:
                         recording['album'] = album_mbid
@@ -50,7 +83,7 @@ if __name__ == '__main__':
                         recording['artist'] = Artist_object.mbid
 
                     i += 1
-                    with open('./json/recordings/recordings' + str(i) + '.json', mode='w', encoding='utf-8') as j:
+                    with open('./json/recordings/a-recordings-' + str(i) + '.json', mode='w', encoding='utf-8') as j:
                         json.dump(recordings, j)
                         f.write(album_mbid + ',')
 

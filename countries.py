@@ -2,7 +2,7 @@ import os
 import sys
 import requests
 from colorama import init, Fore
-from utilities import uprint, load_json, write_json
+from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 json_file = './json/countries.json'
@@ -13,14 +13,19 @@ def main():
     countries = load_json(json_file)
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
-    sys.stdout.write('Creating TimeZone and Language objects... ')
+    sys.stdout.write('Creating TimeZone, Language, and Currency objects... ')
+
     time_zones = extract_unique_time_zones(countries)
     languages = extract_unique_languages(countries)
+    currencies = extract_unique_currencies(countries)
+
     create_TimeZone_objects(time_zones)
     create_Language_objects(languages)
+    create_Currency_objects(currencies)
+
     sys.stdout.write(Fore.GREEN + 'OK\n')
 
-    # the Language and TimeZone objects must be present
+    # the Language, Currency and TimeZone objects must be present
     # in the database before we create the Country objects!
     sys.stdout.write('Creating Country objects... ')
     create_Country_objects(countries)
@@ -53,17 +58,26 @@ def create_Country_object(country):
         Language_object = models.Language.objects.get(iso_code=language.upper())
         Country_object.languages.add(Language_object)
 
+    for currency in country['currencies']:
+        Currency_object = models.Currency.objects.get(iso_code=currency)
+        Country_object.currencies.add(Currency_object)
+
     Country_object.save()
 
 
 def create_Language_objects(languages):
     for language in languages:
-        Language_object = models.Language.objects.create(iso_code=language.upper())
+        models.Language.objects.create(iso_code=language.upper())
 
 
 def create_TimeZone_objects(time_zones):
     for time_zone in time_zones:
-        TimeZone_object = models.TimeZone.objects.create(utc_offset=time_zone)
+        models.TimeZone.objects.create(utc_offset=time_zone)
+
+
+def create_Currency_objects(currencies):
+    for currency in currencies:
+        models.Currency.objects.create(iso_code=currency)
 
 
 def extract_unique_time_zones(countries):
@@ -87,6 +101,16 @@ def extract_unique_languages(countries):
 
     return languages
 
+
+def extract_unique_currencies(countries):
+    currencies = []
+
+    for country in countries:
+        for currency in country['currencies']:
+            if currency not in currencies:
+                currencies.append(currency)
+
+    return currencies
 
 if __name__ == '__main__':
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')

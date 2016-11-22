@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class Currency(models.Model):
+    iso_code = models.CharField(max_length=3)
+
+
 class TimeZone(models.Model):
     utc_offset = models.CharField(max_length=9)
 
@@ -17,6 +21,7 @@ class Country(models.Model):
     subregion = models.CharField(max_length=70)
     population = models.PositiveIntegerField()
     timezones = models.ManyToManyField('TimeZone')
+    currencies = models.ManyToManyField('Currency')
     alpha2code = models.CharField(max_length=2)
 
 

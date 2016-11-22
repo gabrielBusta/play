@@ -8,12 +8,16 @@ from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 def main():
+    sys.stdout.write('Loading *recordings*.json... ')
     recordings = []
     for json_file in os.listdir('./json/recordings'):
         recordings.extend(load_json('./json/recordings/' + json_file))
+    sys.stdout.write(Fore.GREEN + 'DONE\n')
 
+    sys.stdout.write('Creating Recording objects... ')
     for recording in recordings:
         create_Recording_object(recording)
+    sys.stdout.write(Fore.GREEN + 'OK\n')
 
 
 def create_Recording_object(recording):

@@ -57,9 +57,8 @@ if __name__ == '__main__':
 
             sys.stdout.write('Fetching recordings from musicbrainz.org ')
 
-            # Album_objects = list(models.Album.objects.all())
-
             '''
+            Album_objects = list(models.Album.objects.all())
             with open('./abby.txt', 'w') as f:
                 for a in range(0, int(len(Album_objects) / 2)):
                     f.write(Album_objects[a].mbid + ',')
@@ -68,7 +67,6 @@ if __name__ == '__main__':
                 for a in range(int(len(Album_objects) / 2), len(Album_objects)):
                     f.write(Album_objects[a].mbid + ',')
             '''
-
 
             if platform.system() == 'Windows':
                 sys.stdout.write(Fore.BLUE + 'using gabriel.txt\n')

@@ -8,7 +8,6 @@ from colorama import init, Fore, Back
 
 def main(first=False):
     start_time = time.time()
-    os.system('python manage.py migrate --fake app zero')
 
     sys.stdout.write('Deleting contents of \'migrations\' directory... ')
     migrations_dir_content = os.listdir('./app/migrations')
@@ -20,6 +19,8 @@ def main(first=False):
         os.system('rm -r ./app/migrations/__pycache__')
 
     sys.stdout.write(Fore.GREEN + 'DONE\n')
+    
+    os.system('python manage.py migrate --fake app zero')
 
     try:
         sys.stdout.write('Connecting to database server... ')

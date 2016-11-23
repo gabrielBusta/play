@@ -52,6 +52,12 @@ class Artist(models.Model):
 
     country = models.ForeignKey('Country')
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
 
 class Album(models.Model):
     artist = models.ForeignKey('Artist')
@@ -61,6 +67,12 @@ class Album(models.Model):
     title = models.CharField(max_length=300)
     status = models.CharField(max_length=50, blank=True, default='')
 
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
+
 
 class Recording(models.Model):
     mbid = models.CharField(max_length=36)
@@ -68,6 +80,12 @@ class Recording(models.Model):
     length = models.IntegerField(null=True, blank=True, default=None)
     artist = models.ForeignKey('Artist')
     album = models.ForeignKey('Album')
+
+    def __str__(self):
+        return self.title
+
+    def __repr__(self):
+        return self.title
 
 
 class Profile(models.Model):
@@ -86,7 +104,14 @@ class Profile(models.Model):
 
     recordings = models.ManyToManyField('Recording')
 
+    def __str__(self):
+        return self.user.username
+
+    def __repr__(self):
+        return self.user.username
+
 
 class Playlist(models.Model):
+    title = models.CharField(max_length=300)
     recordings = models.ManyToManyField('Recording')
     library = models.ForeignKey('Profile')

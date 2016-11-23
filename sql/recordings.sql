@@ -1,3 +1,4 @@
+/* find the average length of a song */
 SELECT minutes, seconds
 FROM
     (SELECT floor((avg(length) / 1024) / 60) AS minutes FROM app_recording) AS minutes_table

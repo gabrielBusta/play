@@ -66,37 +66,4 @@ if __name__ == '__main__':
     # initialize colorama
     init(autoreset=True)
 
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 'fetch':
-            sys.stdout.write('Setting up musicbrainz.org user agent... ')
-            mbz.set_useragent('database project', '0.1', 'bustamanteg3@gator.uhd.edu')
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
-
-            sys.stdout.write('Fetching albums from musicbrainz.org... ')
-            Artist_objects = models.Artist.objects.all()
-
-            albums = []
-            for Artist_object in Artist_objects:
-                artist_mbid = Artist_object.mbid
-                limit = 15
-                album_list = mbz.browse_releases(artist=artist_mbid,
-                                                 release_type=["album"],
-                                                 limit=limit)['release-list']
-                # we need to record the mbid of the artist used to obtain these albums.
-                # we do this by adding it as a key to the dict we'll save as JSON.
-                for album in album_list:
-                    album['artist'] = artist_mbid
-
-                albums.extend(album_list)
-
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
-
-            sys.stdout.write('Saving to albums to albums.json... ')
-            write_json(albums, json_file)
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
-        else:
-            sys.stdout.write(Fore.RED + 'ERROR\n')
-            sys.stdout.write(Fore.RED + 'Invalid argument!\n')
-            exit(1)
-
     main()

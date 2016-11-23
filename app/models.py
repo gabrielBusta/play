@@ -24,6 +24,12 @@ class Country(models.Model):
     currencies = models.ManyToManyField('Currency')
     alpha2code = models.CharField(max_length=2)
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.alpha2code
+
 
 class Artist(models.Model):
     mbid = models.CharField(max_length=36)
@@ -115,3 +121,9 @@ class Playlist(models.Model):
     title = models.CharField(max_length=300)
     recordings = models.ManyToManyField('Recording')
     library = models.ForeignKey('Profile')
+
+    def __str__(self):
+        return self.user.title
+
+    def __repr__(self):
+        return self.user.title

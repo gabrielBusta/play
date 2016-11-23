@@ -64,38 +64,4 @@ if __name__ == '__main__':
     # initialize colorama
     init(autoreset=True)
 
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 'fetch':
-            sys.stdout.write('Fetching artists from musicbrainz.org... ')
-            mbz.set_useragent('play music app', '0.1', 'gabrielbusta@gmail.com')
-
-            artists = []
-            artists = mbz.search_artists(country='US', limit=50)['artist-list']
-            artists.extend(mbz.search_artists(country='MX', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='VE', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='FR', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='JP', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='KR', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='BR', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='CN', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='GB', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='RU', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='IT', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='ES', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='NG', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='ZA', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='IN', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='CA', limit=50)['artist-list'])
-            artists.extend(mbz.search_artists(country='AR', limit=50)['artist-list'])
-
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
-
-            sys.stdout.write('Saving to artists to artists.json... ')
-            write_json(artists, json_file)
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
-        else:
-            sys.stdout.write(Fore.RED + 'ERROR\n')
-            sys.stdout.write(Fore.RED + 'Invalid argument!\n')
-            exit(1)
-
     main()

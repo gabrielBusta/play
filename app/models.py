@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Currency(models.Model):
+    name = models.CharField(max_length=100, default='')
     iso_code = models.CharField(max_length=3)
 
 
@@ -11,6 +12,7 @@ class TimeZone(models.Model):
 
 
 class Language(models.Model):
+    english_name = models.CharField(max_length=100)
     iso_code = models.CharField(max_length=2)
 
 
@@ -72,6 +74,7 @@ class Album(models.Model):
     mbid = models.CharField(max_length=36)
     title = models.CharField(max_length=300)
     status = models.CharField(max_length=50, blank=True, default='')
+    date = models.DateField(null=True, blank=True, default=None)
 
     def __str__(self):
         return self.title
@@ -83,7 +86,7 @@ class Album(models.Model):
 class Recording(models.Model):
     mbid = models.CharField(max_length=36)
     title = models.CharField(max_length=300)
-    length = models.IntegerField(null=True, blank=True, default=None)
+    length = models.PositiveIntegerField(null=True, blank=True, default=None)
     artist = models.ForeignKey('Artist')
     album = models.ForeignKey('Album')
 
@@ -98,15 +101,25 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     country = models.ForeignKey('Country')
 
-    MALE = 'M'
-    FEMALE = 'F'
-    OTHER = 'Other'
+    cell = models.CharField(max_length=100)
+    phone = models.CharField(max_length=100)
+    street = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+
+    post_code = models.CharField(max_length=20)
+
+    dob = models.DateField()
+
+    MALE = 'male'
+    FEMALE = 'female'
+    OTHER = 'other'
 
     GENDER_CHOICES = ((MALE, 'Male'),
                       (FEMALE, 'Female'),
                       (OTHER, 'Other'))
 
-    gender = models.CharField(max_length=5, choices=GENDER_CHOICES, default='', blank=True)
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, default='', blank=True)
 
     recordings = models.ManyToManyField('Recording')
 
@@ -118,9 +131,9 @@ class Profile(models.Model):
 
 
 class Playlist(models.Model):
-    title = models.CharField(max_length=300)
+    title = models.CharField(max_length=100)
     recordings = models.ManyToManyField('Recording')
-    library = models.ForeignKey('Profile')
+    profile = models.ForeignKey('Profile')
 
     def __str__(self):
         return self.user.title

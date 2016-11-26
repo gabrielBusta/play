@@ -8,7 +8,7 @@ from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 def main():
-    sys.stdout.write('Loading *recordings*.json... ')
+    sys.stdout.write('Loading recordings.json... ')
     recordings = load_json('./json/recordings.json')
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 

@@ -1,4 +1,4 @@
-mport os
+import os
 import sys
 import requests
 from colorama import init, Fore
@@ -16,12 +16,22 @@ def main():
     sys.stdout.write('Creating TimeZone, Language, and Currency objects... ')
 
     time_zones = extract_unique_time_zones(countries)
-    languages = extract_unique_languages(countries)
-    currencies = extract_unique_currencies(countries)
-
     create_TimeZone_objects(time_zones)
+
+    languages = load_json('./json/languages.json')
     create_Language_objects(languages)
-    create_Currency_objects(currencies)
+
+    currencies = extract_unique_currencies(countries)
+    currency_name = load_json('./json/currencies.json')
+    currency_name['BOV'] = 'Bolivian Mvdol'
+    currency_name['SSP'] = 'South Sudanese Pound'
+    currency_name['CHE'] = 'WIR Euro'
+    currency_name['CHW'] = 'WIR Franc'
+    currency_name['USN'] = 'United States dollar (next day)'
+    currency_name['USS'] = 'United States dollar (same day)'
+    currency_name['UYI'] = 'Uruguay Peso en Unidades Indexadas'
+
+    create_Currency_objects(currencies, currency_name)
 
     sys.stdout.write(Fore.GREEN + 'OK\n')
 
@@ -67,7 +77,8 @@ def create_Country_object(country):
 
 def create_Language_objects(languages):
     for language in languages:
-        models.Language.objects.create(iso_code=language.upper())
+        models.Language.objects.create(iso_code=language['alpha2'].upper(),
+                                       english_name=language['English'])
 
 
 def create_TimeZone_objects(time_zones):
@@ -75,9 +86,11 @@ def create_TimeZone_objects(time_zones):
         models.TimeZone.objects.create(utc_offset=time_zone)
 
 
-def create_Currency_objects(currencies):
+def create_Currency_objects(currencies, currency_name):
     for currency in currencies:
-        models.Currency.objects.create(iso_code=currency)
+        name = currency_name.get(currency, '')
+        models.Currency.objects.create(iso_code=currency,
+                                       name=name)
 
 
 def extract_unique_time_zones(countries):

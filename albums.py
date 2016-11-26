@@ -1,5 +1,6 @@
 import os
 import sys
+import datetime
 import musicbrainzngs as mbz
 from colorama import init, Fore
 from utilities import uprint, load_json, write_json, pretty_print_json
@@ -53,6 +54,17 @@ def create_Album_object(album):
 
     if barcode != None and barcode != '':
         Album_object.barcode = int(barcode)
+
+    date = album.get('date', None)
+    if date != None:
+        if date.count('-') == 2:
+            date = datetime.datetime.strptime(date, "%Y-%m-%d").date()
+        elif date.count('-') == 1:
+            date = datetime.datetime.strptime(date, "%Y-%m").date()
+        elif date.count('-') == 0:
+            date = datetime.datetime.strptime(date, "%Y").date()
+
+    Album_object.date = date
 
     Album_object.save()
 

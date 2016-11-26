@@ -13,11 +13,9 @@ def main(first=False):
     sys.stdout.write('Deleting contents of \'migrations\' directory... ')
     migrations_dir_content = os.listdir('./app/migrations')
 
-    if '0001_initial.py' in migrations_dir_content:
-        os.system('rm ./app/migrations/0001_initial.py')
-
-    if '__pycache__' in migrations_dir_content:
-        os.system('rm -r ./app/migrations/__pycache__')
+    for name in migrations_dir_content:
+        if name != '__init__.py':
+            os.system('rm ./app/migrations/' + name)
 
     sys.stdout.write(Fore.GREEN + 'DONE\n')
 
@@ -90,6 +88,8 @@ def main(first=False):
     os.system('python albums.py')
 
     os.system('python recordings.py')
+
+    os.system('python users.py')
 
     sys.stdout.write('Generating database schema... ')
     os.system('java -jar ./jar/schemaSpy_5.0.0.jar -t pgsql -db play -host 127.0.0.1 -u postgres -p default -o schema -dp ./jar/postgresql-9.4.1212.jre6.jar -s public -noads')

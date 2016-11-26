@@ -1,4 +1,4 @@
-import os
+mport os
 import sys
 import requests
 from colorama import init, Fore
@@ -120,14 +120,5 @@ if __name__ == '__main__':
 
     # initialize color
     init(autoreset=True)
-
-    if len(sys.argv) == 2:
-        if sys.argv[1] == 'fetch':
-            sys.stdout.write('Fetching countries from restcountries.eu... ')
-            response = requests.get('https://restcountries.eu/rest/v1/all')
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
-            sys.stdout.write('Saving to countries to countries.json... ')
-            write_json(response.json(), json_file)
-            sys.stdout.write(Fore.GREEN + 'DONE\n')
 
     main()

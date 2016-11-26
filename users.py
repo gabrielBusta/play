@@ -7,11 +7,22 @@ from utilities import uprint, load_json, write_json, pretty_print_json
 
 
 def main():
+    sys.stdout.write('Retrieving Album objects... ')
     Album_objects = Album.objects.all()
+    sys.stdout.write(Fore.GREEN + 'DONE\n')
+
+    sys.stdout.write('Loading users.json... ')
     users = load_json('./json/users.json')
+    sys.stdout.write(Fore.GREEN + 'DONE\n')
+
+    sys.stdout.write('Loading lorem.json... ')
     lorem = load_json('./json/lorem.json')
+    sys.stdout.write(Fore.GREEN + 'DONE\n')
+
+    sys.stdout.write('Creating User and Profile objects... ')
     for user in users:
         create_user_profile(user, Album_objects, lorem)
+    sys.stdout.write(Fore.GREEN + 'OK\n')
 
 
 def create_user_profile(user, Album_objects, lorem):

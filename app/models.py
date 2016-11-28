@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 
 class Currency(models.Model):
     name = models.CharField(max_length=100, default='')
+    usd_rate = models.DecimalField(max_digits=15, decimal_places=10)
     iso_code = models.CharField(max_length=3)
 
 

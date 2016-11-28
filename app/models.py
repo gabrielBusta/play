@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Currency(models.Model):
     name = models.CharField(max_length=100, default='')
-    usd_rate = models.DecimalField(max_digits=15, decimal_places=10)
+    usd_rate = models.FloatField()
     iso_code = models.CharField(max_length=3)
 
 
@@ -90,7 +90,7 @@ class Recording(models.Model):
     length = models.PositiveIntegerField(null=True, blank=True, default=None)
     artist = models.ForeignKey('Artist')
     album = models.ForeignKey('Album')
-    price = models.DecimalField(max_digits=15, decimal_places=10)
+    price = models.FloatField()
 
     def __str__(self):
         return self.title

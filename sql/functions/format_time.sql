@@ -2,7 +2,7 @@ CREATE OR REPLACE FUNCTION public.format_time(IN time_units integer)
 RETURNS text AS $function$
 DECLARE
     minutes integer;
-	  seconds integer;
+    seconds integer;
     duration text;
 BEGIN
     minutes := FLOOR((time_units / 1024) / 60);

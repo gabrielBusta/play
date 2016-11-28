@@ -8,7 +8,7 @@ RETURNS TABLE(song character varying,
 AS $function$
 BEGIN
     RETURN QUERY
-	  SELECT app_recording.title,
+    SELECT app_recording.title,
            format_time(app_recording.length),
            app_artist.name,
            app_album.title,

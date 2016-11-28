@@ -90,6 +90,7 @@ class Recording(models.Model):
     length = models.PositiveIntegerField(null=True, blank=True, default=None)
     artist = models.ForeignKey('Artist')
     album = models.ForeignKey('Album')
+    price = models.DecimalField(max_digits=15, decimal_places=10)
 
     def __str__(self):
         return self.title

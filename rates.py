@@ -3,15 +3,18 @@ import os
 import random
 from utilities import load_json, uprint, write_json
 
+
 def main():
     rates = load_json('./json/rates.json')
+
     for currency_rate in rates.items():
         currency = currency_rate[0][3:]
         try:
             Currency_object = models.Currency.objects.get(iso_code=currency)
         except:
-            break
+            continue
         Currency_object.usd_rate = currency_rate[1]
+        Currency_object.save()
 
 
 if __name__ == '__main__':

@@ -3,10 +3,8 @@ RETURNS TABLE(song character varying,
               duration text,
               album character varying,
               artist character varying,
-              album_release_date date,
-              release_country character varying,
-              release_region character varying,
-              release_subregion character varying)
+              release_date date,
+              release_country character varying)
 AS $function$
 BEGIN
     RETURN QUERY
@@ -15,13 +13,12 @@ BEGIN
 	         app_artist.name,
            app_album.title,
 	         app_album.date,
-	         app_country.name,
-           app_country.region,
-           app_country.subregion
+	         app_country.name
     FROM app_recording
     JOIN app_artist ON app_recording.artist_id = app_artist.id
     JOIN app_album ON app_recording.album_id= app_album.id
     JOIN app_country ON app_album.country_id = app_country.id
-    WHERE LOWER(app_recording.title) ~ LOWER(song_title);
+    WHERE LOWER(app_recording.title) ~ LOWER(song_title)
+    ORDER BY app_album.date DESC;
 END;
 $function$ LANGUAGE 'plpgsql' STABLE;

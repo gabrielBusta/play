@@ -3,17 +3,15 @@ RETURNS TABLE(song character varying,
               duration text,
               album character varying,
               artist character varying,
-              release_date date,
-              release_country character varying)
+              release_date date)
 AS $function$
 BEGIN
     RETURN QUERY
     SELECT app_recording.title,
            format_time(app_recording.length),
-           app_artist.name,
            app_album.title,
-           app_album.date,
-           app_country.name
+           app_artist.name,
+           app_album.date
     FROM app_recording
     JOIN app_artist ON app_recording.artist_id = app_artist.id
     JOIN app_album ON app_recording.album_id= app_album.id

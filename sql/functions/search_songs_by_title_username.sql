@@ -3,12 +3,11 @@ RETURNS TABLE(song character varying,
               duration text,
               album character varying,
               artist character varying,
-              release_date date,
-              price double precision)
+              price text)
 AS $function$
 DECLARE
-    currency_name character varying;
     rate double precision;
+    currency_name character varying;
 BEGIN
     SELECT app_currency.usd_rate INTO rate
     FROM auth_user
@@ -39,8 +38,7 @@ BEGIN
            format_time(app_recording.length),
            app_album.title,
            app_artist.name,
-           app_album.date,
-           local_currency(app_recording.price, rate)
+           CAST(to_char(local_currency(app_recording.price, rate), 'FM999999999.00') AS text) || ' ' || currency_name
     FROM app_recording
     JOIN app_artist ON app_recording.artist_id = app_artist.id
     JOIN app_album ON app_recording.album_id= app_album.id

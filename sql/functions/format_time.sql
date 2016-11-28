@@ -14,4 +14,4 @@ BEGIN
     END IF;
     RETURN duration;
 END;
-$function$ LANGUAGE 'plpgsql' IMMUTABLE NOT LEAKPROOF;
+$function$ LANGUAGE 'plpgsql' IMMUTABLE;

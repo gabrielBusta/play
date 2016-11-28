@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION public.get_user_library(IN username_var text)
+CREATE OR REPLACE FUNCTION public.search_library_songs_by_title(IN username_var text, IN song_title text)
 RETURNS TABLE(song character varying,
               duration text,
               album character varying,
@@ -11,6 +11,6 @@ BEGIN
            user_library.album,
            user_library.artist
     FROM user_library
-    WHERE user_library.username = username_var;
+    WHERE user_library.username = username_var AND LOWER(user_library.song) ~ LOWER(song_title);
 END;
 $function$ LANGUAGE 'plpgsql' STABLE;

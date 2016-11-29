@@ -13,6 +13,10 @@ SELECT * FROM search_songs_by_title('water', 'silverfrog437');
 SELECT * FROM search_songs_by_title('water', 'goldenpeacock960');
 SELECT * FROM search_songs_by_title('water', 'orangefish325');
 
+SELECT * FROM max_song_price();
+
+SELECT * FROM percentage_categories();
+
 SELECT avg_age(dob) FROM app_profile WHERE user_id = 1780 OR user_id = 1781 OR user_id = 1782;
 
 SELECT avg_age(dob) FROM app_profile;

@@ -1,7 +1,9 @@
 CREATE OR REPLACE VIEW public.user_location_currency AS
 SELECT app_profile.user_id,
        auth_user.username,
+       app_profile.dob,
        app_country.name AS country,
+       app_country.alpha2code AS country_code,
        app_currency.name AS currency,
        app_currency.iso_code AS currency_code,
        app_currency.usd_rate

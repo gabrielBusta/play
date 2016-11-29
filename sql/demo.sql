@@ -17,11 +17,7 @@ SELECT * FROM max_song_price();
 
 SELECT * FROM percentage_categories();
 
-SELECT avg_age(dob) FROM app_profile WHERE user_id = 1780 OR user_id = 1781 OR user_id = 1782;
-
 SELECT avg_age(dob) FROM app_profile;
-
-SELECT avg_age(dob) FROM app_profile WHERE user_id = 1;
 
 SELECT avg_age(dob) AS "avgerage user age (United States)"
 FROM user_location_currency
@@ -38,3 +34,5 @@ WHERE country_code = 'BR';
 SELECT avg_age(dob) AS "avgerage user age (Germany)"
 FROM user_location_currency
 WHERE country_code = 'DE';
+
+SELECT * FROM avg_age_of_audience('Los Amigos Invisibles');

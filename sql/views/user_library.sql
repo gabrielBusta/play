@@ -1,5 +1,6 @@
 CREATE OR REPLACE VIEW public.user_library AS
-SELECT auth_user.username,
+SELECT auth_user.id,
+       auth_user.username,
        app_recording.title AS song,
        app_recording.length AS duration,
        app_album.title AS album,

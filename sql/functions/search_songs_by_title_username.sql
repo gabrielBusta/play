@@ -9,29 +9,13 @@ DECLARE
     rate double precision;
     currency_name character varying;
 BEGIN
-    SELECT app_currency.usd_rate INTO rate
-    FROM auth_user
-    JOIN app_profile
-    ON app_profile.user_id = auth_user.id
-    JOIN app_country
-    ON app_country.id = app_profile.country_id
-    JOIN app_country_currencies
-    ON app_country_currencies.country_id = app_country.id
-    JOIN app_currency
-    ON app_currency.id = app_country_currencies.currency_id
-    WHERE auth_user.username = username_var;
+    SELECT user_location_currency.usd_rate INTO rate
+    FROM user_location_currency
+    WHERE user_location_currency.username = username_var;
 
-    SELECT app_currency.name INTO currency_name
-    FROM auth_user
-    JOIN app_profile
-    ON app_profile.user_id = auth_user.id
-    JOIN app_country
-    ON app_country.id = app_profile.country_id
-    JOIN app_country_currencies
-    ON app_country_currencies.country_id = app_country.id
-    JOIN app_currency
-    ON app_currency.id = app_country_currencies.currency_id
-    WHERE auth_user.username = username_var;
+	  SELECT user_location_currency.currency INTO currency_name
+    FROM user_location_currency
+    WHERE user_location_currency.username = username_var;
 
     RETURN QUERY
     SELECT app_recording.title,
@@ -42,7 +26,6 @@ BEGIN
     FROM app_recording
     JOIN app_artist ON app_recording.artist_id = app_artist.id
     JOIN app_album ON app_recording.album_id= app_album.id
-    JOIN app_country ON app_album.country_id = app_country.id
     WHERE LOWER(app_recording.title) ~ LOWER(song_title)
     ORDER BY app_album.date DESC;
 END;

@@ -15,7 +15,6 @@ BEGIN
     FROM app_recording
     JOIN app_artist ON app_recording.artist_id = app_artist.id
     JOIN app_album ON app_recording.album_id= app_album.id
-    JOIN app_country ON app_album.country_id = app_country.id
     WHERE LOWER(app_recording.title) ~ LOWER(song_title)
     ORDER BY app_album.date DESC;
 END;

@@ -1,4 +1,5 @@
-CREATE OR REPLACE FUNCTION public.local_currency(IN price_usd double precision, IN rate double precision)
+CREATE OR REPLACE FUNCTION public.local_currency(IN price_usd double precision,
+                                                 IN rate double precision)
 RETURNS double precision
 AS $function$
 DECLARE

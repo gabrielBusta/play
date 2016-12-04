@@ -36,3 +36,8 @@ FROM user_location_currency
 WHERE country_code = 'DE';
 
 SELECT * FROM avg_age_of_audience('Los Amigos Invisibles');
+
+SELECT * FROM create_account('monamonita123', 'gabrielito',
+                             'Gabriel', 'Bustamante', 'gabriel@gmail.com',
+                             '281-682-7548', '713-985-5214', '5219 westrige place',
+                             'houston', 'texas', '77041', '1992-10-19', 'male', 'US'); 

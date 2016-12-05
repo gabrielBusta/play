@@ -47,3 +47,9 @@ SELECT * FROM delete_account('gabrielito');
 SELECT *
 FROM auth_user JOIN app_profile ON auth_user.id = app_profile.user_id
 WHERE username = 'gabrielito';
+
+SELECT * FROM auth_user WHERE username = 'bluemouse411';
+
+SELECT * FROM login('bluemouse411', 'cornwall');
+
+SELECT * FROM auth_user WHERE username = 'bluemouse411';

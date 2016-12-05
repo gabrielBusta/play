@@ -13,6 +13,8 @@ SELECT * FROM search_songs_by_title('water', 'silverfrog437');
 SELECT * FROM search_songs_by_title('water', 'goldenpeacock960');
 SELECT * FROM search_songs_by_title('water', 'orangefish325');
 
+SELECT * FROM search_songs_by_album('This Is Not a Film');
+
 SELECT * FROM max_song_price();
 
 SELECT * FROM percentage_categories();
